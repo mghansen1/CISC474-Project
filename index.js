@@ -16,6 +16,10 @@ const player1 = new Fighter({
     velocity: {
         x: 0,
         y: 0
+    }, 
+    attackArea: {
+        height: 30,
+        width: 50
     }
 })
 
@@ -27,6 +31,10 @@ const player2 = new Fighter({
     velocity: {
         x: 0,
         y: 0
+    }, 
+    attackArea: {
+        height: 30,
+        width: 50
     }
 })
 
@@ -54,8 +62,12 @@ function animate() {
     player1.velocity.x = 0
     if (keyDown.a.pressed && player1.lastkey === 'a') {
         player1.velocity.x = -10.8
+    } else if (keyDown.d.pressed && player1.lastkey === 'a') {
+        player1.velocity.x = 10.8
     } else if (keyDown.d.pressed && player1.lastkey === 'd') {
         player1.velocity.x = 10.8
+    } else if (keyDown.a.pressed && player1.lastkey === 'd') {
+        player1.velocity.x = -10.8
     }
 }
 animate()
