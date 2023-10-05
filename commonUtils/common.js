@@ -17,6 +17,30 @@ function collisionDetection({player, enemy}) {
     }
 }
 
-function determineWinner() {}
 
-function timer() {}
+let time = 60;
+function determineWinner({player, enemy}) {
+    if (player.health == 0 && enemy.health != 0) {
+        console.log(enemy.name + " Wins! 0")
+    } else if (enemy.health == 0 && player.health != 0) {
+        console.log(player.name + " Wins! 0") 
+    }
+
+
+    if (time === 0) {
+        if (player.health > enemy.health) {
+            console.log(player.name + " Wins!")
+        } else if (player.health < enemy.health) {
+            console.log(enemy.name + " Wins!")
+        } else {
+            console.log("Tie")
+        }
+    }
+
+
+}
+ 
+function decreaseTime() {
+    
+
+}

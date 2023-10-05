@@ -1,12 +1,18 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
+const hitBoxesOn = false;
 canvas.width = 1024;
 canvas.height = 576;
 const gravity = .3;
 
-c.fillStyle = "blue";
-c.fillRect(0, 0, canvas.width, canvas.height)
+// c.fillStyle = "blue";
+// c.fillRect(0, 0, canvas.width, canvas.height)
+
+var background = new Image();
+background.src = "./sprites/background.gif";
+
+c.drawImage(background,0,0);   
 
 const player1 = new Fighter({
     position: {
@@ -18,14 +24,34 @@ const player1 = new Fighter({
         y: 0
     }, 
     size: {
-        width: 50,
-        height: 150
+        width: 75,
+        height: 140
     },
     attackArea: {
-        height: 60,
-        width: 150
+        height: 90,
+        width: 210
     },
-    facingDirection: 1
+    facingDirection: 1,
+    health: 50,
+    attackDamage: 10,
+    name: "Player 1",
+    imageSrc: "./sprites/Warrior/Idle.png",
+    maxFrames: 10,
+    scale: 3.5,
+    offset: {
+        x: 205,
+        y: 163
+    },
+    sprites: {
+        idle: {
+            imageSrc: "./sprites/Warrior/Idle.png",
+            maxFrames: 10
+        },
+        attack: {
+            imageSrc: "./sprites/Warrior/Attack1.png",
+            maxFrames: 4
+        }
+    }
 })
 
 const player2 = new Fighter({
@@ -38,12 +64,33 @@ const player2 = new Fighter({
         y: 0
     }, 
     size: {
-        width: 50,
-        height: 150
+        width: 75,
+        height: 140
     },
     attackArea: {
         height: 30,
         width: 50
+    },
+    facingDirection: 1,
+    health: 50,
+    attackDamage: 10,
+    name: "Player 2",
+    imageSrc: "./sprites/Warrior/Idle.png",
+    maxFrames: 10,
+    scale: 3.5,
+    offset: {
+        x: 205,
+        y: 163
+    },
+    sprites: {
+        idle: {
+            imageSrc: "./sprites/Warrior/Idle.png",
+            maxFrames: 10
+        },
+        attack: {
+            imageSrc: "./sprites/Warrior/Attack1.png",
+            maxFrames: 4
+        }
     }
 })
 
@@ -60,11 +107,13 @@ const keyDown = {
 }
 
 
+
 //main loop
 function animate() {
     window.requestAnimationFrame(animate)
     c.fillStyle = "blue";
     c.fillRect(0, 0, canvas.width, canvas.height)   
+    c.drawImage(background,0,0, canvas.width, canvas.height);
     player1.update()
     player2.update()
 
@@ -82,11 +131,19 @@ function animate() {
 
     if (player1.isAttacking && collisionDetection({player: player1, enemy: player2})) {
         console.log("p1 hit p2");
+        if (player1.damageDealt === false) {
+            player2.takeDamage({damageAmount: player1.attackDamage})
+            player1.damageDealt = true
+            determineWinner({player: player1, enemy: player2})
+        } 
+        
     }
 
     if (player1.isAttacking) {
         setTimeout(() => {
-            player1.isAttacking = false 
+            player1.isAttacking = false
+            player1.damageDealt = false
+            player1.switchSprite("idle") 
             }, 100
         );   
     }
@@ -111,7 +168,7 @@ window.addEventListener('keydown', (e) => {
             player1.velocity.y = -10.8;
             break;
         case "c":
-            player1.isAttacking = true;
+            player1.attack()
             break;    
     }
 
