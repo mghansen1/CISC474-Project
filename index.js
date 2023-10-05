@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-const hitBoxesOn = false;
+let hitBoxesOn = true;
 canvas.width = 1024;
 canvas.height = 576;
 const gravity = .3;
@@ -111,8 +111,8 @@ const keyDown = {
 //main loop
 function animate() {
     window.requestAnimationFrame(animate)
-    c.fillStyle = "blue";
-    c.fillRect(0, 0, canvas.width, canvas.height)   
+    // c.fillStyle = "blue";
+    // c.fillRect(0, 0, canvas.width, canvas.height)   
     c.drawImage(background,0,0, canvas.width, canvas.height);
     player1.update()
     player2.update()
@@ -169,7 +169,11 @@ window.addEventListener('keydown', (e) => {
             break;
         case "c":
             player1.attack()
-            break;    
+            break;  
+        case "t":
+            hitBoxesOn = !hitBoxesOn
+            console.log(hitBoxesOn)
+            break;
     }
 
 })
