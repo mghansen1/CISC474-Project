@@ -16,7 +16,7 @@ c.drawImage(background,0,0);
 
 const player1 = new Fighter({
     position: {
-        x: 400,
+        x: 200,
         y: 0
     },
     velocity: {
@@ -42,6 +42,7 @@ const player1 = new Fighter({
         x: 205,
         y: 163
     },
+    remainingJumps: 2,
     sprites: {
         idle: {
             imageSrc: "./sprites/Warrior/Idle.png",
@@ -72,7 +73,7 @@ const player1 = new Fighter({
 
 const player2 = new Fighter({
     position: {
-        x: 310,
+        x: 410,
         y: 0
     },
     velocity: {
@@ -98,6 +99,7 @@ const player2 = new Fighter({
         x: 205,
         y: 163
     },
+    remainingJumps: 2,
     sprites: {
         idle: {
             imageSrc: "./sprites/Warrior/Idle.png",
@@ -190,6 +192,8 @@ function animate() {
         player1.switchSprite("jump")
     } else if (player1.velocity.y > 0) {
         player1.switchSprite("fall")
+    } else if (player1.velocity.y === 0 && player1.remainingJumps === 0) {
+        player1.remainingJumps = player1.maxJumps
     }
 
     if (player1.isAttacking && collisionDetection({player: player1, enemy: player2})) {
@@ -222,6 +226,8 @@ function animate() {
         player2.switchSprite("jump")
     } else if (player2.velocity.y > 0) {
         player2.switchSprite("fall")
+    } else if (player2.velocity.y === 0 && player2.remainingJumps === 0) {
+        player2.remainingJumps = player2.maxJumps
     }
 
     if (player2.isAttacking && collisionDetection({player: player2, enemy: player1})) {
@@ -237,7 +243,6 @@ function animate() {
     if (player1.gettingHit) {
         if (player1.currentFrame == player1.sprites.getHit.maxFrames - 1) {
             player1.gettingHit = false
-            // player1.switchSprite("idle")
         }
     } else {
         if (player1.isAttacking) {
@@ -253,7 +258,6 @@ function animate() {
     if (player2.gettingHit) {
         if (player2.currentFrame == player2.sprites.getHit.maxFrames - 1) {
             player2.gettingHit = false
-            // player2.switchSprite("idle")
         }
 
     } else {
@@ -285,7 +289,10 @@ window.addEventListener('keydown', (e) => {
             player1.facingDirection = 1
             break;
         case "w":
-            player1.velocity.y = -10.8;
+            if (player1.remainingJumps > 0) {
+                player1.velocity.y = -10.8;
+                player1.remainingJumps -= 1
+            }
             break;
         case " ":
             player1.attack()
@@ -301,7 +308,10 @@ window.addEventListener('keydown', (e) => {
             player2.facingDirection = 1
             break;
         case "ArrowUp":
-            player2.velocity.y = -10.8;
+            if (player2.remainingJumps > 0) {
+                player2.velocity.y = -10.8;
+                player2.remainingJumps -= 1
+            }
             break;
         case "ArrowDown":
             player2.attack()
@@ -323,7 +333,9 @@ window.addEventListener('keyup', (e) => {
             keyDown.d.pressed = false
             break;
         case "w":
-            player1.velocity.y = 0
+            if (player1.remainingJumps > 0) {
+                player1.velocity.y = 0
+            }
             break;
         case "ArrowLeft":
             keyDown.ArrowLeft.pressed = false
@@ -332,7 +344,9 @@ window.addEventListener('keyup', (e) => {
             keyDown.ArrowRight.pressed = false
             break;
         case "ArrowUp":
-            player2.velocity.y = 0
+            if (player2.remainingJumps > 0) {
+                player2.velocity.y = 0
+            }
             break;
     }
 })
