@@ -8,7 +8,7 @@ class Sprite {
         this.maxFrames = maxFrames
         this.scale = scale
         this.offset = offset
-        this.framesHold = 7
+        this.framesHold = 10
         this.frameBuffer = 0
         this.sprites = sprites
     }
@@ -52,7 +52,6 @@ class Sprite {
 
         }
         c.restore()
-            
     }
 
     animateFrame() {
@@ -95,6 +94,12 @@ class Fighter extends Sprite {
         this.attackDamage = attackDamage
         this.name = name
         this.damageDealt = false
+        this.gettingHit = false
+
+        for (const sprite in this.sprites) {
+            sprites[sprite].image = new Image()
+            sprites[sprite].image.src = sprites[sprite].imageSrc
+        }
     }
 
     update() {
@@ -110,15 +115,15 @@ class Fighter extends Sprite {
             this.position.x = 0
             this.velocity.x = 0
         }
-        if (this.position.y + this.size.height + this.velocity.y > canvas.height) {
+        if (this.position.y + this.size.height + this.velocity.y >= canvas.height) {
             this.position.y = canvas.height - this.size.height
+            this.velocity.y = 0
         } else {
             this.velocity.y += gravity
         }
 
         
-        
-
+    
         // depreciate when added attack animation, call animateFrame()
         if (this.isAttacking && hitBoxesOn) {
             c.fillStyle = 'green';
@@ -137,31 +142,85 @@ class Fighter extends Sprite {
         this.switchSprite("attack")
     }
 
-    takeDamage({damageAmount}) {
+    takeDamage({damageAmount, enemyDirection}) {
         this.health -= damageAmount
         if (this.health < 0) {
             this.health = 0
+        } else {
+            this.getHit({enemyDirection: enemyDirection})
         }
         console.log(this.health);
 
     }
 
+    getHit({enemyDirection}) {
+        this.gettingHit = true
+        this.velocity.x = enemyDirection * 2
+        this.velocity.y -= 5
+        setTimeout(() => {
+            this.velocity.x = 0 
+            }, 100
+        );
+        this.switchSprite("getHit")
+    }
+
     switchSprite(sprite) {
+
+        if (this.image === this.sprites.attack.image && this.currentFrame < this.sprites.attack.maxFrames - 1) {
+            return
+        }
+
+        if (this.image === this.sprites.getHit.image && this.currentFrame < this.sprites.getHit.maxFrames - 1) {
+            return
+        }
+        console.log(sprite)
         // switch through idle, attack, dodge, run, jump, death sprites
         switch (sprite) {
             case "idle":
-                this.image.src = this.sprites.idle.imageSrc
-                this.maxFrames = this.sprites.idle.maxFrames
-                this.currentFrame = 0
-
+                if (this.image !== this.sprites.idle.image) {
+                    this.image = this.sprites.idle.image
+                    this.maxFrames = this.sprites.idle.maxFrames
+                    this.currentFrame = 0
+                    
+                }
                 break
+                
             case "attack":
-                this.image.src = this.sprites.attack.imageSrc
-                this.maxFrames = this.sprites.attack.maxFrames
-                this.currentFrame = 0
+                if (this.image !== this.sprites.attack.image) {
+                    this.image = this.sprites.attack.image
+                    this.maxFrames = this.sprites.attack.maxFrames
+                    this.currentFrame = 0
+                    
+                }
                 break
-
-
+            case "getHit":
+                if (this.image !== this.sprites.getHit.image) {   
+                    this.image = this.sprites.getHit.image
+                    this.maxFrames = this.sprites.getHit.maxFrames
+                    this.currentFrame = 0
+                }
+                break
+            case "run":
+                if (this.image !== this.sprites.run.image) {
+                    this.image = this.sprites.run.image
+                    this.maxFrames = this.sprites.run.maxFrames
+                    this.currentFrame = 0
+                }
+                break
+            case "jump":
+                if (this.image !== this.sprites.jump.image) {
+                    this.image = this.sprites.jump.image
+                    this.maxFrames = this.sprites.jump.maxFrames
+                    this.currentFrame = 0
+                }
+                break
+            case "fall":
+                if (this.image !== this.sprites.fall.image) {
+                    this.image = this.sprites.fall.image
+                    this.maxFrames = this.sprites.fall.maxFrames
+                    this.currentFrame = 0
+                }
+                break   
         }
     }
 
