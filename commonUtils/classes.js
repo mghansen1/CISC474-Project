@@ -81,6 +81,7 @@ class Fighter extends Sprite {
         maxFrames,
         scale,
         offset,
+        remainingJumps,
         sprites
     }) {
         super({position, size, imageSrc, maxFrames, scale, offset, sprites})
@@ -95,6 +96,8 @@ class Fighter extends Sprite {
         this.name = name
         this.damageDealt = false
         this.gettingHit = false
+        this.maxJumps = 2
+        this.remainingJumps = remainingJumps
 
         for (const sprite in this.sprites) {
             sprites[sprite].image = new Image()
@@ -173,7 +176,7 @@ class Fighter extends Sprite {
         if (this.image === this.sprites.getHit.image && this.currentFrame < this.sprites.getHit.maxFrames - 1) {
             return
         }
-        console.log(sprite)
+        // console.log(sprite)
         // switch through idle, attack, dodge, run, jump, death sprites
         switch (sprite) {
             case "idle":
