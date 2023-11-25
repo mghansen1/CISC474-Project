@@ -14,7 +14,7 @@ background.src = "./sprites/background.gif";
 
 c.drawImage(background,0,0);   
 
-const player1 = new Fighter({
+const player1 = new BrowserFighter({
     position: {
         x: 200,
         y: 0
@@ -71,7 +71,7 @@ const player1 = new Fighter({
     }
 })
 
-const player2 = new Fighter({
+const player2 = new BrowserFighter({
     position: {
         x: 410,
         y: 0

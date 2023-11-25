@@ -2,8 +2,6 @@ class Sprite {
     constructor({position, size, imageSrc, maxFrames, scale, offset, sprites}) {
         this.position = position
         this.size = size
-        this.image = new Image()
-        this.image.src = imageSrc
         this.currentFrame = 0
         this.maxFrames = maxFrames
         this.scale = scale
@@ -14,57 +12,14 @@ class Sprite {
     }
 
     draw() {
-        if (hitBoxesOn) {
-            c.fillStyle = 'red';
-            c.fillRect(this.position.x, this.position.y, this.size.width, this.size.height)
-        }
-         
-        // const image = new Image()
-        // image.src = "./sprites/Warrior/Idle.png"
-        // c.drawImage(this.image, 0, 0)
-        
-        c.save();
-        if (this.facingDirection == -1) {
-            c.scale(-1,1)
-            c.drawImage(
-                this.image,
-                this.currentFrame * (this.image.width / this.maxFrames),
-                0,
-                this.image.width / this.maxFrames,
-                this.image.height,
-                -1 * (this.position.x + this.offset.x+70),
-                this.position.y - this.offset.y,
-                (this.image.width / this.maxFrames) * this.scale,
-                this.image.height * this.scale
-            )
-        } else {
-            c.drawImage(
-                this.image,
-                this.currentFrame * (this.image.width / this.maxFrames),
-                0,
-                this.image.width / this.maxFrames,
-                this.image.height,
-                this.position.x - this.offset.x,
-                this.position.y - this.offset.y,
-                (this.image.width / this.maxFrames) * this.scale,
-                this.image.height * this.scale
-                )
-
-        }
-        c.restore()
+        throw new Error('draw method must be implemented in derived classes');
     }
-
+    
     animateFrame() {
-        this.frameBuffer++
-
-        if (this.frameBuffer % this.framesHold === 0) {
-            if (this.currentFrame < this.maxFrames - 1) {
-                this.currentFrame++
-            } else {
-                this.currentFrame = 0
-            }
-        }
+        throw new Error('animateFrame method must be implemented in derived classes');
     }
+
+
 }
 
 class Fighter extends Sprite {
@@ -98,11 +53,10 @@ class Fighter extends Sprite {
         this.gettingHit = false
         this.maxJumps = 2
         this.remainingJumps = remainingJumps
-
-        for (const sprite in this.sprites) {
-            sprites[sprite].image = new Image()
-            sprites[sprite].image.src = sprites[sprite].imageSrc
-        }
+        // for (const sprite in this.sprites) {
+        //     sprites[sprite].image = new Image()
+        //     sprites[sprite].image.src = sprites[sprite].imageSrc
+        // }
     }
 
     update() {
@@ -176,7 +130,7 @@ class Fighter extends Sprite {
         if (this.image === this.sprites.getHit.image && this.currentFrame < this.sprites.getHit.maxFrames - 1) {
             return
         }
-        // console.log(sprite)
+        
         // switch through idle, attack, dodge, run, jump, death sprites
         switch (sprite) {
             case "idle":
@@ -229,3 +183,4 @@ class Fighter extends Sprite {
 
 
 }
+module.exports = { Sprite, Fighter }
