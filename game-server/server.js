@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const path = require("path")
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 10000
 
 app.use("/sprites",express.static(path.join(__dirname, "..", "sprites")))
 app.use(express.static(path.join(__dirname, "..", "commonUtils")))
