@@ -8,3 +8,47 @@ canvas {
     left:0;
     right:0;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(sprites/background.gif);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+main {
+    position: absolute;
+    top: 35%;
+    left: 33%;
+    padding: 20px;
+    background-color: #333;
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #fff;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.login {
+    position: relative;
+    left: 40%;
+}

@@ -1,5 +1,6 @@
-const canvas = document.querySelector("canvas")
+const canvas = document.getElementById("canvas")
 const c = canvas.getContext('2d')
+const ping = document.getElementById("ping")
 
 
 canvas.width = 1224;
@@ -9,8 +10,9 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 
 const socket = io();
 frontEndPlayers = {}
-let hitBoxesOn = true;
+let hitBoxesOn = false;
 let selfID;
+const gravity = 0
 
 socket.on("connect", () => {
     selfID = socket.id
@@ -92,24 +94,42 @@ socket.on('positionUpdate', playerPos => {
         if(frontEndPlayers[id] !== undefined && id === playerPos.id){
             frontEndPlayers[id].position.x = playerPos.x;
             frontEndPlayers[id].position.y = playerPos.y;
+            frontEndPlayers[id].facingDirection = playerPos.facingDirection;
+            frontEndPlayers[id].isAttacking = playerPos.isAttacking;
+            frontEndPlayers[id].switchSprite(playerPos.sprite)
         }
     }
 })
 
 
+let startTime;
+
+function measurePing() {
+  startTime = Date.now();
+  socket.emit('ping');
+}
+
+socket.on('pong', () => {
+    const latency = Date.now() - startTime;
+    console.log(`Ping: ${latency}ms`);
+    ping.innerHTML = `Ping: ${latency}ms`
+});
+
+setInterval(() => {
+    measurePing();
+}, 3000);
+
 var background = new Image();
 background.src = "./sprites/background.gif";
-const gravity = .3;
 let animationId
 function animate() {
-  animationId = requestAnimationFrame(animate)
+    animationId = requestAnimationFrame(animate)
 
-  c.drawImage(background,0,0, canvas.width, canvas.height);
-  
+    c.drawImage(background,0,0, canvas.width, canvas.height);
 
-  for (const id in frontEndPlayers) {
-    frontEndPlayers[id].update()
-  }
+    for (const id in frontEndPlayers) {
+        frontEndPlayers[id].update()
+    }
 
 }
 
@@ -130,43 +150,42 @@ const keyDown = {
 }
 
 
+
 window.addEventListener('keydown', (e) => {
     if (!frontEndPlayers[socket.id]) return
 
-    let player1 = frontEndPlayers[socket.id]
+    let player = frontEndPlayers[socket.id]
     switch(e.key) {
         case "a":
-            console.log("a")
             keyDown.a.pressed = true;
-            player1.lastkey = 'a'
-            player1.facingDirection = -1
+            player.lastkey = 'a'
+            player.facingDirection = -1
             break;
         case "d":
             keyDown.d.pressed = true;
-            player1.lastkey = 'd'
-            player1.facingDirection = 1
+            player.lastkey = 'd'
+            player.facingDirection = 1
             break;
         case "w":
-            if (player1.remainingJumps > 0) {
-                player1.velocity.y = -10.8;
-                player1.remainingJumps -= 1
-            }
+            keyDown.w.pressed = true;
+            // if (player.remainingJumps > 0) {
+            //     player.velocity.y = -10.8;
+            //     player.remainingJumps -= 1
+            // }
             break;
         case " ":
-            player1.attack()
+            // player.attack()
+            player.isAttacking = true;
             break;
         case "t":
             hitBoxesOn = !hitBoxesOn
             break;
-            
     }
-
+    emitUserCommands(e.key, 'keydown')
 })
 
 window.addEventListener('keyup', (e) => {
     if (!frontEndPlayers[socket.id]) return
-
-    
 
     switch(e.key) {
         case "a":
@@ -176,14 +195,29 @@ window.addEventListener('keyup', (e) => {
             keyDown.d.pressed = false
             break;
         case "w":
-            if (frontEndPlayers[socket.id].remainingJumps > 0) {
-                frontEndPlayers[socket.id].velocity.y = 0
-            }
+            keyDown.w.pressed = false
+            // if (frontEndPlayers[socket.id].remainingJumps > 0) {
+            //     frontEndPlayers[socket.id].velocity.y = 0
+            // }
             break;
         
     }
+    emitUserCommands(e.key, 'keyup')
 })
 
-function emitUserCommands() {
-    socket.emit("userCommand")
+function emitUserCommands(currentKey, eventType) {
+    let player = frontEndPlayers[socket.id]
+    let userCommandObj = {
+        currentKey: currentKey,
+        eventType: eventType,
+        a: keyDown.a.pressed,
+        d: keyDown.d.pressed,
+        w: keyDown.w.pressed,
+        lastkey: player.lastkey,
+        facingDirection: player.facingDirection,
+        isAttacking: player.isAttacking,
+        hitBoxesOn: hitBoxesOn
+    }
+    socket.emit("userCommands", userCommandObj)
 }
+

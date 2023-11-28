@@ -9,6 +9,7 @@ class Sprite {
         this.framesHold = 10
         this.frameBuffer = 0
         this.sprites = sprites
+        this.image = 'idle'
     }
 
     draw() {
@@ -16,11 +17,26 @@ class Sprite {
     }
     
     animateFrame() {
-        throw new Error('animateFrame method must be implemented in derived classes');
+        this.frameBuffer++
+
+        if (this.frameBuffer % this.framesHold === 0) {
+            if (this.currentFrame < this.maxFrames - 1) {
+                this.currentFrame++
+            } else {
+                this.currentFrame = 0
+            }
+        }
     }
 
 
 }
+
+const canvas = {
+    width: 1224,
+    height: 576
+}
+const gravity = 0.4
+const hitBoxesOn = false
 
 class Fighter extends Sprite {
     constructor({
@@ -53,6 +69,10 @@ class Fighter extends Sprite {
         this.gettingHit = false
         this.maxJumps = 2
         this.remainingJumps = remainingJumps
+        this.up = { pressed: false}
+        this.left = { pressed: false}
+        this.right = { pressed: false}
+        this.roomNo = undefined;
         // for (const sprite in this.sprites) {
         //     sprites[sprite].image = new Image()
         //     sprites[sprite].image.src = sprites[sprite].imageSrc
@@ -60,10 +80,11 @@ class Fighter extends Sprite {
     }
 
     update() {
-        this.draw()
+        //this.draw()
         this.animateFrame()
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+        
 
         if (this.position.x + this.size.width + this.velocity.x > canvas.width) {
             this.position.x = canvas.width - this.size.width
@@ -75,9 +96,12 @@ class Fighter extends Sprite {
         if (this.position.y + this.size.height + this.velocity.y >= canvas.height) {
             this.position.y = canvas.height - this.size.height
             this.velocity.y = 0
+            this.remainingJumps = this.maxJumps
         } else {
             this.velocity.y += gravity
         }
+
+        
 
         
     
@@ -106,36 +130,38 @@ class Fighter extends Sprite {
         } else {
             this.getHit({enemyDirection: enemyDirection})
         }
-        console.log(this.health);
+        //console.log(this.health);
 
     }
 
     getHit({enemyDirection}) {
         this.gettingHit = true
-        this.velocity.x = enemyDirection * 2
+        this.velocity.x = enemyDirection * 3
         this.velocity.y -= 5
         setTimeout(() => {
-            this.velocity.x = 0 
-            }, 100
+            //this.velocity.x = 0 
+            //this.gettingHit = false
+            }, 500
         );
         this.switchSprite("getHit")
     }
 
     switchSprite(sprite) {
 
-        if (this.image === this.sprites.attack.image && this.currentFrame < this.sprites.attack.maxFrames - 1) {
-            return
-        }
+        // if (this.image === 'attack' && this.currentFrame < this.sprites.attack.maxFrames - 1) {
+        //     return
+        // }
 
-        if (this.image === this.sprites.getHit.image && this.currentFrame < this.sprites.getHit.maxFrames - 1) {
+        if (this.image === 'getHit' && this.currentFrame < this.sprites.getHit.maxFrames - 1) {
+            this.currentFrame++
             return
         }
         
         // switch through idle, attack, dodge, run, jump, death sprites
         switch (sprite) {
             case "idle":
-                if (this.image !== this.sprites.idle.image) {
-                    this.image = this.sprites.idle.image
+                if (this.image !== 'idle') {
+                    this.image = 'idle'
                     this.maxFrames = this.sprites.idle.maxFrames
                     this.currentFrame = 0
                     
@@ -143,37 +169,38 @@ class Fighter extends Sprite {
                 break
                 
             case "attack":
-                if (this.image !== this.sprites.attack.image) {
-                    this.image = this.sprites.attack.image
+                if (this.image !== 'attack') {
+                    this.image = 'attack'
                     this.maxFrames = this.sprites.attack.maxFrames
                     this.currentFrame = 0
                     
                 }
                 break
             case "getHit":
-                if (this.image !== this.sprites.getHit.image) {   
-                    this.image = this.sprites.getHit.image
+                if (this.image !== 'getHit') {   
+                    //console.log("sto")
+                    this.image = 'getHit'
                     this.maxFrames = this.sprites.getHit.maxFrames
                     this.currentFrame = 0
                 }
                 break
             case "run":
-                if (this.image !== this.sprites.run.image) {
-                    this.image = this.sprites.run.image
+                if (this.image !== 'run') {
+                    this.image = 'run'
                     this.maxFrames = this.sprites.run.maxFrames
                     this.currentFrame = 0
                 }
                 break
             case "jump":
-                if (this.image !== this.sprites.jump.image) {
-                    this.image = this.sprites.jump.image
+                if (this.image !== 'jump') {
+                    this.image = 'jump'
                     this.maxFrames = this.sprites.jump.maxFrames
                     this.currentFrame = 0
                 }
                 break
             case "fall":
-                if (this.image !== this.sprites.fall.image) {
-                    this.image = this.sprites.fall.image
+                if (this.image !== 'fall') {
+                    this.image = 'fall'
                     this.maxFrames = this.sprites.fall.maxFrames
                     this.currentFrame = 0
                 }
