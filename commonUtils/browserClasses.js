@@ -1,9 +1,9 @@
-class Sprite {
+class BrowserSprite {
     constructor({position, size, imageSrc, maxFrames, scale, offset, sprites}) {
-        this.position = position
-        this.size = size
         this.image = new Image()
         this.image.src = imageSrc
+        this.position = position
+        this.size = size
         this.currentFrame = 0
         this.maxFrames = maxFrames
         this.scale = scale
@@ -18,10 +18,6 @@ class Sprite {
             c.fillStyle = 'red';
             c.fillRect(this.position.x, this.position.y, this.size.width, this.size.height)
         }
-         
-        // const image = new Image()
-        // image.src = "./sprites/Warrior/Idle.png"
-        // c.drawImage(this.image, 0, 0)
         
         c.save();
         if (this.facingDirection == -1) {
@@ -67,7 +63,7 @@ class Sprite {
     }
 }
 
-class Fighter extends Sprite {
+class BrowserFighter extends BrowserSprite {
     constructor({
         velocity,
         position,
@@ -98,7 +94,6 @@ class Fighter extends Sprite {
         this.gettingHit = false
         this.maxJumps = 2
         this.remainingJumps = remainingJumps
-
         for (const sprite in this.sprites) {
             sprites[sprite].image = new Image()
             sprites[sprite].image.src = sprites[sprite].imageSrc
@@ -176,7 +171,7 @@ class Fighter extends Sprite {
         if (this.image === this.sprites.getHit.image && this.currentFrame < this.sprites.getHit.maxFrames - 1) {
             return
         }
-        // console.log(sprite)
+        
         // switch through idle, attack, dodge, run, jump, death sprites
         switch (sprite) {
             case "idle":
@@ -226,6 +221,6 @@ class Fighter extends Sprite {
                 break   
         }
     }
-
-
 }
+
+module.exports = { BrowserSprite, BrowserFighter }

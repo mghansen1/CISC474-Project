@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-let hitBoxesOn = true;
+let hitBoxesOn = false;
 canvas.width = 1224;
 canvas.height = 576;
 const gravity = .3;
@@ -10,11 +10,11 @@ const gravity = .3;
 // c.fillRect(0, 0, canvas.width, canvas.height)
 
 var background = new Image();
-background.src = "./sprites/background.gif";
+background.src = "../sprites/background.gif";
 
 c.drawImage(background,0,0);   
 
-const player1 = new Fighter({
+const player1 = new BrowserFighter({
     position: {
         x: 200,
         y: 0
@@ -35,7 +35,7 @@ const player1 = new Fighter({
     health: 500,
     attackDamage: 10,
     name: "Player 1",
-    imageSrc: "./sprites/Warrior/Idle.png",
+    imageSrc: "../sprites/Warrior/Idle.png",
     maxFrames: 10,
     scale: 3.5,
     offset: {
@@ -45,33 +45,33 @@ const player1 = new Fighter({
     remainingJumps: 2,
     sprites: {
         idle: {
-            imageSrc: "./sprites/Warrior/Idle.png",
+            imageSrc: "../sprites/Warrior/Idle.png",
             maxFrames: 10
         },
         attack: {
-            imageSrc: "./sprites/Warrior/Attack1.png",
+            imageSrc: "../sprites/Warrior/Attack1.png",
             maxFrames: 4
         }, 
         getHit: {
-            imageSrc: "./sprites/Warrior/Get Hit.png",
+            imageSrc: "../sprites/Warrior/Get Hit.png",
             maxFrames: 3
         },
         run: {
-            imageSrc: "./sprites/Warrior/Run.png",
+            imageSrc: "../sprites/Warrior/Run.png",
             maxFrames: 6
         },
         jump: {
-            imageSrc: "./sprites/Warrior/Jump.png",
+            imageSrc: "../sprites/Warrior/Jump.png",
             maxFrames: 2
         },
         fall: {
-            imageSrc: "./sprites/Warrior/Fall.png",
+            imageSrc: "../sprites/Warrior/Fall.png",
             maxFrames: 2
         },
     }
 })
 
-const player2 = new Fighter({
+const player2 = new BrowserFighter({
     position: {
         x: 410,
         y: 0
@@ -92,7 +92,7 @@ const player2 = new Fighter({
     health: 500,
     attackDamage: 10,
     name: "Player 2",
-    imageSrc: "./sprites/Warrior/Idle.png",
+    imageSrc: "../sprites/Warrior/Idle.png",
     maxFrames: 10,
     scale: 3.5,
     offset: {
@@ -102,27 +102,27 @@ const player2 = new Fighter({
     remainingJumps: 2,
     sprites: {
         idle: {
-            imageSrc: "./sprites/Warrior/Idle.png",
+            imageSrc: "../sprites/Warrior/Idle.png",
             maxFrames: 10
         },
         attack: {
-            imageSrc: "./sprites/Warrior/Attack1.png",
+            imageSrc: "../sprites/Warrior/Attack1.png",
             maxFrames: 4
         },
         getHit: {
-            imageSrc: "./sprites/Warrior/Get Hit.png",
+            imageSrc: "../sprites/Warrior/Get Hit.png",
             maxFrames: 3
         },
         run: {
-            imageSrc: "./sprites/Warrior/Run.png",
+            imageSrc: "../sprites/Warrior/Run.png",
             maxFrames: 6
         },
         jump: {
-            imageSrc: "./sprites/Warrior/Jump.png",
+            imageSrc: "../sprites/Warrior/Jump.png",
             maxFrames: 2
         },
         fall: {
-            imageSrc: "./sprites/Warrior/Fall.png",
+            imageSrc: "../sprites/Warrior/Fall.png",
             maxFrames: 2
         },
     
@@ -333,7 +333,7 @@ window.addEventListener('keyup', (e) => {
             keyDown.d.pressed = false
             break;
         case "w":
-            if (player1.remainingJumps > 0) {
+            if (player1.remainingJumps >= 0) {
                 player1.velocity.y = 0
             }
             break;
