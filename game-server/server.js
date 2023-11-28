@@ -15,17 +15,26 @@ const { collisionDetection, determineWinner, decreaseTime } = require('../common
 const { BrowserSprite, BrowserFighter } = require('../commonUtils/browserClasses.js');
 const { Sprite, Fighter } = require('./serverClasses.js');
 
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/client.html'));
-});
-
 MAX_ROOM_PLAYERS = 2
 backEndPlayers = {}
 playerReg = {}
 clientNo = 0
 let roomNo
 let rooms = {}
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/client.html'));
+});
+
+app.get('/status', (req, res) => {
+    res.send('Server is running!');
+});
+
+app.get('/active-players', (req, res) => {
+    res.end(`${Object.keys(backEndPlayers).length}`)
+})
+
+
 
 io.on('connection', (socket) => {
     // clientNo++;
@@ -115,7 +124,7 @@ io.on('connection', (socket) => {
     backEndPlayers[socket.id].roomNo = roomId
 
     for (let id in backEndPlayers) {
-        console.log(`id: ${id} in room no: ${backEndPlayers[id].roomNo}`)
+        //console.log(`id: ${id} in room no: ${backEndPlayers[id].roomNo}`)
         io.to(backEndPlayers[id].roomNo).emit("updateConnections", playerReg[id])
     }
 
@@ -258,6 +267,6 @@ function serverLoop() {
 
 
 
-server.listen(3000, () => {
-  console.log('listening on *:3000');
+server.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
 });
