@@ -14,7 +14,24 @@ let hitBoxesOn = false;
 let selfID;
 const gravity = 0
 
+
+let bg;
 socket.on("connect", () => {
+    bg = new BrowserSprite({
+        position: {
+            x: 0,
+            y: 0
+        }, 
+        size: {
+            width: canvas.width,
+            height: canvas.height
+        },
+        imageSrc: "./sprites/backgrounds/Town2.png",
+        maxFrames: 8,
+        scale: 1,
+        framesHold: 25
+    })
+    bg.isFighter = false
     selfID = socket.id
 })
 
@@ -125,7 +142,8 @@ let animationId
 function animate() {
     animationId = requestAnimationFrame(animate)
 
-    c.drawImage(background,0,0, canvas.width, canvas.height);
+    //c.drawImage(background,0,0, canvas.width, canvas.height);
+    try {bg.drawBackground()} catch (e) {}
 
     for (const id in frontEndPlayers) {
         frontEndPlayers[id].update()

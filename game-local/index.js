@@ -4,131 +4,27 @@ const c = canvas.getContext('2d')
 let hitBoxesOn = false;
 canvas.width = 1224;
 canvas.height = 576;
-const gravity = .3;
+const gravity = .3;   
 
-// c.fillStyle = "blue";
-// c.fillRect(0, 0, canvas.width, canvas.height)
-
-var background = new Image();
-background.src = "../sprites/background.gif";
-
-c.drawImage(background,0,0);   
-
-const player1 = new BrowserFighter({
+const bg = new BrowserSprite({
     position: {
-        x: 200,
-        y: 0
-    },
-    velocity: {
         x: 0,
         y: 0
     }, 
     size: {
-        width: 75,
-        height: 140
+        width: canvas.width,
+        height: canvas.height
     },
-    attackArea: {
-        height: 90,
-        width: 210
-    },
-    facingDirection: -1,
-    health: 500,
-    attackDamage: 10,
-    name: "Player 1",
-    imageSrc: "../sprites/Warrior/Idle.png",
-    maxFrames: 10,
-    scale: 3.5,
-    offset: {
-        x: 205,
-        y: 163
-    },
-    remainingJumps: 2,
-    sprites: {
-        idle: {
-            imageSrc: "../sprites/Warrior/Idle.png",
-            maxFrames: 10
-        },
-        attack: {
-            imageSrc: "../sprites/Warrior/Attack1.png",
-            maxFrames: 4
-        }, 
-        getHit: {
-            imageSrc: "../sprites/Warrior/Get Hit.png",
-            maxFrames: 3
-        },
-        run: {
-            imageSrc: "../sprites/Warrior/Run.png",
-            maxFrames: 6
-        },
-        jump: {
-            imageSrc: "../sprites/Warrior/Jump.png",
-            maxFrames: 2
-        },
-        fall: {
-            imageSrc: "../sprites/Warrior/Fall.png",
-            maxFrames: 2
-        },
-    }
+    imageSrc: "../sprites/backgrounds/Town.png",
+    maxFrames: 8,
+    scale: 1,
+    framesHold: 25,
+    facingDirection: 1
 })
+bg.isFighter = false
 
-const player2 = new BrowserFighter({
-    position: {
-        x: 410,
-        y: 0
-    },
-    velocity: {
-        x: 0,
-        y: 0
-    }, 
-    size: {
-        width: 75,
-        height: 140
-    },
-    attackArea: {
-        height: 90,
-        width: 210
-    },
-    facingDirection: 1,
-    health: 500,
-    attackDamage: 10,
-    name: "Player 2",
-    imageSrc: "../sprites/Warrior/Idle.png",
-    maxFrames: 10,
-    scale: 3.5,
-    offset: {
-        x: 205,
-        y: 163
-    },
-    remainingJumps: 2,
-    sprites: {
-        idle: {
-            imageSrc: "../sprites/Warrior/Idle.png",
-            maxFrames: 10
-        },
-        attack: {
-            imageSrc: "../sprites/Warrior/Attack1.png",
-            maxFrames: 4
-        },
-        getHit: {
-            imageSrc: "../sprites/Warrior/Get Hit.png",
-            maxFrames: 3
-        },
-        run: {
-            imageSrc: "../sprites/Warrior/Run.png",
-            maxFrames: 6
-        },
-        jump: {
-            imageSrc: "../sprites/Warrior/Jump.png",
-            maxFrames: 2
-        },
-        fall: {
-            imageSrc: "../sprites/Warrior/Fall.png",
-            maxFrames: 2
-        },
-    
-
-    }
-})
+const player1 = new BrowserFighter(fighterConfigurations({character: "Warrior", player: "p1"}))
+const player2 = new BrowserFighter(fighterConfigurations({character: "Fantasy_Warrior", player: "p2"}))
 
 const keyDown = {
     ArrowLeft: {
@@ -158,7 +54,8 @@ function animate() {
     window.requestAnimationFrame(animate)
     // c.fillStyle = "blue";
     // c.fillRect(0, 0, canvas.width, canvas.height)   
-    c.drawImage(background,0,0, canvas.width, canvas.height);
+    //c.drawImage(background,0,0, canvas.width, canvas.height);
+    bg.drawBackground()
     player1.update()
     player2.update()
 
@@ -174,15 +71,19 @@ function animate() {
     
     if (keyDown.a.pressed && player1.lastkey === 'a') {
         player1.velocity.x = -10.8
+        player1.facingDirection = -1
         player1.switchSprite("run")
     } else if (keyDown.d.pressed && player1.lastkey === 'a') {
         player1.velocity.x = 10.8
+        player1.facingDirection = 1
         player1.switchSprite("run")
     } else if (keyDown.d.pressed && player1.lastkey === 'd') {
         player1.velocity.x = 10.8
+        player1.facingDirection = 1
         player1.switchSprite("run")
     } else if (keyDown.a.pressed && player1.lastkey === 'd') {
         player1.velocity.x = -10.8
+        player1.facingDirection = -1
         player1.switchSprite("run")
     } else {
         player1.switchSprite("idle")
@@ -208,15 +109,19 @@ function animate() {
 
     if (keyDown.ArrowLeft.pressed && player2.lastkey === 'ArrowLeft') {
         player2.velocity.x = -10.8
+        player2.facingDirection = -1
         player2.switchSprite("run")
     } else if (keyDown.ArrowRight.pressed && player2.lastkey === 'ArrowLeft') {
         player2.velocity.x = 10.8
+        player2.facingDirection = 1
         player2.switchSprite("run")
     } else if (keyDown.ArrowRight.pressed && player2.lastkey === 'ArrowRight') {
         player2.velocity.x = 10.8
+        player2.facingDirection = 1
         player2.switchSprite("run")
     } else if (keyDown.ArrowLeft.pressed && player2.lastkey === 'ArrowRight') {
         player2.velocity.x = -10.8
+        player2.facingDirection = -1
         player2.switchSprite("run")
     } else {
         player2.switchSprite("idle")
