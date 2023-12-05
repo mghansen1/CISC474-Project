@@ -1,5 +1,5 @@
 class BrowserSprite {
-    constructor({position, size, imageSrc, maxFrames, scale, offset, sprites}) {
+    constructor({position, size, imageSrc, maxFrames, scale, offset = { x: 0, y: 0 }, sprites, facingDirection, framesHold = 10}) {
         this.image = new Image()
         this.image.src = imageSrc
         this.position = position
@@ -8,13 +8,15 @@ class BrowserSprite {
         this.maxFrames = maxFrames
         this.scale = scale
         this.offset = offset
-        this.framesHold = 10
+        this.framesHold = framesHold
         this.frameBuffer = 0
         this.sprites = sprites
+        this.isFighter = true
+        this.facingDirection = facingDirection
     }
 
     draw() {
-        if (hitBoxesOn) {
+        if (hitBoxesOn && this.isFighter) {
             c.fillStyle = 'red';
             c.fillRect(this.position.x, this.position.y, this.size.width, this.size.height)
         }
@@ -28,7 +30,7 @@ class BrowserSprite {
                 0,
                 this.image.width / this.maxFrames,
                 this.image.height,
-                -1 * (this.position.x + this.offset.x+70),
+                -1 * (this.position.x + this.offset.x+110),
                 this.position.y - this.offset.y,
                 (this.image.width / this.maxFrames) * this.scale,
                 this.image.height * this.scale
@@ -40,7 +42,7 @@ class BrowserSprite {
                 0,
                 this.image.width / this.maxFrames,
                 this.image.height,
-                this.position.x - this.offset.x,
+                this.position.x - this.offset.x-20,
                 this.position.y - this.offset.y,
                 (this.image.width / this.maxFrames) * this.scale,
                 this.image.height * this.scale
@@ -48,6 +50,21 @@ class BrowserSprite {
 
         }
         c.restore()
+    }
+
+    drawBackground() {
+        c.drawImage(
+            this.image,
+            this.currentFrame * (this.image.width / this.maxFrames),
+            0,
+            this.image.width / this.maxFrames,
+            this.image.height,
+            this.position.x - this.offset.x,
+            this.position.y - this.offset.y,
+            this.size.width * this.scale,
+            this.size.height * this.scale
+            )
+        this.animateFrame()
     }
 
     animateFrame() {

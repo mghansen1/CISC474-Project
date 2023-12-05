@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="select.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Fight Club Home</title>
 </head>
 <body>
-    <header>Fight Club</h1> <a href="#"><button class="login">Login</button></a>
-    </header>
 
     <main>
         <p>Welcome to Fight Club! Get ready for an epic battle.</p>
         
-        <!-- Add more content, links, or buttons as needed -->
+        <div class="character-selection">
+            <div class="fighter-list">
+                <div class="fighter" id="fighter1"><img src="./sprites/Warrior/Still.png"><span>Warrior</span></div>
+                <div class="fighter" id="fighter2"><img src="./sprites/Wizard/Still.png"><span>Wizard</span></div>
+                <div class="fighter" id="fighter3"><img src="./sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
+                <div class="fighter" id="fighter4"><img src="./sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
+                <div class="fighter" id="fighter1"><img src="./sprites/Warrior/Still.png"><span>Warrior</span></div>
+                <div class="fighter" id="fighter2"><img src="./sprites/Wizard/Still.png"><span>Wizard</span></div>
+                <div class="fighter" id="fighter3"><img src="./sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
+                <div class="fighter" id="fighter4"><img src="./sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
+                <div class="fighter" id="fighter1"><img src="./sprites/Warrior/Still.png"><span>Warrior</span></div>
+                <div class="fighter" id="fighter2"><img src="./sprites/Wizard/Still.png"><span>Wizard</span></div>
+                <div class="fighter" id="fighter3"><img src="./sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
+                <div class="fighter" id="fighter4"><img src="./sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
+            </div>
+            <div class="selected-fighter">
+                <h2>Selected Fighter</h2>
+                <div id="selectedFighter">No Fighter Selected</div>
+            </div>
+        </div>
 
-        <p>Join the fight now! <a href="./game-local/play.html"><button>Play Local</button></a></p>
-        <p>Join the fight now! <a href="http://localhost:3000/"><button>Play Online</button></a></p>
+        <p>Join the fight now! <a href="https://cisc474-online-service.onrender.com"><button>Play Online</button></a></p>
     </main>
+    <script src="select.js"></script>
+    <script src="fighterConfigurations.js"></script>
 </body>
 </html>
