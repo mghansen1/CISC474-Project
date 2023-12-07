@@ -317,37 +317,37 @@ function fighterConfigurations({character, player}) {
             health: 500,
             attackDamage: 10,
             name: "Player 2",
-            imageSrc: "../sprites/Warrior/Idle.png",
+            imageSrc: "../sprites/Martial Hero/Idle.png",
             maxFrames: 4,
-            scale: 3.5,
+            scale: 2.8,
             offset: {
-                x: 205,
-                y: 163
+                x: 215,
+                y: 220
             },
             remainingJumps: 2,
             sprites: {
                 idle: {
-                    imageSrc: "../sprites/Warrior/Idle.png",
+                    imageSrc: "../sprites/Martial Hero/Idle.png",
                     maxFrames: 4
                 },
                 attack: {
-                    imageSrc: "../sprites/Warrior/Attack1.png",
+                    imageSrc: "../sprites/Martial Hero/Attack1.png",
                     maxFrames: 4
                 },
                 getHit: {
-                    imageSrc: "../sprites/Warrior/Take hit.png",
+                    imageSrc: "../sprites/Martial Hero/Take hit.png",
                     maxFrames: 3
                 },
                 run: {
-                    imageSrc: "../sprites/Warrior/Run.png",
+                    imageSrc: "../sprites/Martial Hero/Run.png",
                     maxFrames: 8
                 },
                 jump: {
-                    imageSrc: "../sprites/Warrior/Jump.png",
+                    imageSrc: "../sprites/Martial Hero/Jump.png",
                     maxFrames: 2
                 },
                 fall: {
-                    imageSrc: "../sprites/Warrior/Fall.png",
+                    imageSrc: "../sprites/Martial Hero/Fall.png",
                     maxFrames: 2
                 },
             
@@ -375,7 +375,7 @@ function fighterConfigurations({character, player}) {
             health: 500,
             attackDamage: 10,
             name: "Player 2",
-            imageSrc: ".../sprites/Wizard/Idle.png",
+            imageSrc: "../sprites/Wizard/Idle.png",
             maxFrames: 6,
             scale: 2.2,
             offset: {
@@ -385,27 +385,27 @@ function fighterConfigurations({character, player}) {
             remainingJumps: 2,
             sprites: {
                 idle: {
-                    imageSrc: ".../sprites/Wizard/Idle.png",
+                    imageSrc: "../sprites/Wizard/Idle.png",
                     maxFrames: 6
                 },
                 attack: {
-                    imageSrc: ".../sprites/Wizard/Attack2.png",
+                    imageSrc: "../sprites/Wizard/Attack2.png",
                     maxFrames: 8
                 },
                 getHit: {
-                    imageSrc: ".../sprites/Wizard/Hit.png",
+                    imageSrc: "../sprites/Wizard/Hit.png",
                     maxFrames: 4
                 },
                 run: {
-                    imageSrc: ".../sprites/Wizard/Run.png",
+                    imageSrc: "../sprites/Wizard/Run.png",
                     maxFrames: 8
                 },
                 jump: {
-                    imageSrc: ".../sprites/Wizard/Jump.png",
+                    imageSrc: "../sprites/Wizard/Jump.png",
                     maxFrames: 2
                 },
                 fall: {
-                    imageSrc: ".../sprites/Wizard/Fall.png",
+                    imageSrc: "../sprites/Wizard/Fall.png",
                     maxFrames: 2
                 },
             

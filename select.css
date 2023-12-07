@@ -1,18 +1,41 @@
+@font-face { 
+  font-family: myFirstFont; src: url("./fonts/SHPinscher-Regular.otf");
+}
+
+div, h1{
+  font-family: myFirstFont;
+}
+
+h1 {
+  color: white;
+  margin: 0px;
+}
+
+#heading {
+  text-align: center;
+  font-size: 38px;
+}
+
+
 .character-selection {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 2px solid black;
-  }
+    /* border: 2px solid black; */
+}
   
-  .fighter-list {
+.fighter-list {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     max-width: 70%
-  }
+}
   
-  .fighter {
+body {
+  margin: 0px;
+}
+
+.fighter {
     background: rgb(64,64,64);
     background: linear-gradient(90deg, rgba(64,64,64,1) 0%, rgba(179,154,49,1) 48%, rgba(0,0,0,1) 100%);
     margin-bottom: 10px;
@@ -35,15 +58,10 @@
     box-shadow: 0 15px 30px -10px black
   }
 
-  .fighter-content {
+.fighter-content {
     color: red;
-  }
+}
 
-  /* .fighter img {
-    width: 100%;
-    height: auto;
-    max-height: 100%;
-  } */
 
 .fighter img {
   position: absolute;
@@ -54,35 +72,172 @@
   max-height: 100%; 
 }
 
+
 .selected-fighter {
+    background: rgb(66,66,65);
+    background: linear-gradient(90deg, rgba(66,66,65,1) 4%, rgba(64,64,64,1) 9%, rgba(179,219,143,1) 47%, rgba(3,2,1,1) 74%, rgba(169,170,184,1) 100%);
     text-align: center;
+    position: relative;
     margin: 20px;
-    background-color: red;
-    height: 300px;
-    min-width: 280px;
-    display: flex;
+    min-height: 350px;
+    min-width: 300px;
+    display: inline-block;
     flex-direction: column;
     justify-content: space-between;
-  }
-
-#selectedFighter {
-  text-align: center;
+    align-items: center;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border: 5px solid rgba(253, 175, 30, 0.837);
+    color: white;
+    transition: opacity 2s linear;
 }
+
 
 .fighter span {
   position: absolute;
-  bottom: -5px; /* Adjust vertical position as needed */
-  left: 50%; /* Center the text horizontally */
+  bottom: -5px; 
+  left: 50%; 
   transform: translateX(-50%);
   display: block;
   width: 100%;
   text-align: center;
   border: 5px solid rgba(224, 224, 217, 0.883);
-  background-color:blueviolet
+  background-color:rgb(12, 2, 21);
+}
+
+.fighter:hover span{
+  border: 6px solid rgba(229, 57, 186, 0.883);
+  z-index:2;
+}
+
+.fighter:hover {
+  border: 5px solid rgba(224, 221, 78, 0.724);
+}
+
+  
+.selected-fighter #selectedFighter{
+  border: 5px solid rgb(203, 142, 9);
+  text-align: center;
+  width: 100%;
+  font-size: 24px;
+  position: absolute;
+  bottom: -5px; /* Adjust vertical position as needed */
+  left: 50%; /* Center the text horizontally */
+  transform: translateX(-50%);
+  display: block;
+  background-color: black;
+}
+
+canvas {
+  position: center;
+  height: 80%;
+  width: 100%;
+  margin-bottom:40px;
+}
+
+body {
+  background: url(./sprites/backgrounds/Original\ Backgrounds/character_selection_bg.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#select-heading {
+  font-size:30px;
+  margin-bottom: 0px
 
 }
-  
-.selected-fighter #selectedFighter {
-  border: 2px solid black;
-  padding: 10px;
+
+button {
+  background-color: #000000;
+  font-size: 16px;
+  font-family: serif;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  text-shadow: 2px 2px #EEEF;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.slide-effect {
+  color: #fff;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0 40px;
+  padding: 15px 30px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  text-decoration: none;
+  width: 5em;
+  font-size: 38px;
+  border: 5px solid rgb(255, 255, 255);
+  text-align: center;
+  background: linear-gradient(to right, #03effe, #026be2)
+}
+
+.btn:hover {
+  transition: 0.7s;
+  border: 5px solid rgb(135, 95, 210);
+}
+
+.slide-effect::before {
+  content:"";
+  position: absolute;
+  height: 120px;
+  width: 20px;
+  background: #f3f3f3;
+  box-shadow: 0 0 10px #fff;
+  filter: blur(1px);
+  opacity: 0.9;
+  top: -50px;
+  transition: 0.7s;
+  transform: rotate(-20deg) translateX(-150px);
+}
+
+.slide-effect:hover::before {
+  transform: rotate(-20deg) translate(160px, 70px)
+}
+
+.btn-right {
+  float:right;
+  margin-top: 20px;
+  margin-right: 130px
+}
+
+.shine-line {
+  overflow: hidden;
+}
+
+#select-heading {
+  overflow: hidden;
+}
+
+.shine-line::before {
+  content:"";
+  position: absolute;
+  height: 400px;
+  width: 20px;
+  background: #f3f3f3;
+  box-shadow: 0 0 10px #fff;
+  filter: blur(3px);
+  opacity: 0.8;
+  top: 30px;
+  transition: 0.65s;
+  transform: rotate(-20deg) translateX(-140px) translateY(-90px);
+}
+
+.shine-line:hover::before {
+  transform: rotate(-20deg) translate(310px, 10px)
 }

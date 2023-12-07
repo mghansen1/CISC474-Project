@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-let hitBoxesOn = false;
+let hitBoxesOn = true;
 canvas.width = 1224;
 canvas.height = 576;
 const gravity = .3;   
@@ -24,7 +24,7 @@ const bg = new BrowserSprite({
 bg.isFighter = false
 
 const player1 = new BrowserFighter(fighterConfigurations({character: "Warrior", player: "p1"}))
-const player2 = new BrowserFighter(fighterConfigurations({character: "Fantasy_Warrior", player: "p2"}))
+const player2 = new BrowserFighter(fighterConfigurations({character: "Martial_hero", player: "p2"}))
 
 const keyDown = {
     ArrowLeft: {
