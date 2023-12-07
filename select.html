@@ -9,32 +9,27 @@
 <body>
 
     <main>
-        <p>Welcome to Fight Club! Get ready for an epic battle.</p>
-        
+        <div id="heading"><h1>--Select Character--</h1></div>
         <div class="character-selection">
             <div class="fighter-list">
                 <div class="fighter" id="fighter1"><img src="./sprites/Warrior/Still.png"><span>Warrior</span></div>
                 <div class="fighter" id="fighter2"><img src="./sprites/Wizard/Still.png"><span>Wizard</span></div>
                 <div class="fighter" id="fighter3"><img src="./sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
                 <div class="fighter" id="fighter4"><img src="./sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
-                <div class="fighter" id="fighter1"><img src="./sprites/Warrior/Still.png"><span>Warrior</span></div>
-                <div class="fighter" id="fighter2"><img src="./sprites/Wizard/Still.png"><span>Wizard</span></div>
-                <div class="fighter" id="fighter3"><img src="./sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
-                <div class="fighter" id="fighter4"><img src="./sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
-                <div class="fighter" id="fighter1"><img src="./sprites/Warrior/Still.png"><span>Warrior</span></div>
-                <div class="fighter" id="fighter2"><img src="./sprites/Wizard/Still.png"><span>Wizard</span></div>
-                <div class="fighter" id="fighter3"><img src="./sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
-                <div class="fighter" id="fighter4"><img src="./sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
             </div>
             <div class="selected-fighter">
-                <h2>Selected Fighter</h2>
-                <div id="selectedFighter">No Fighter Selected</div>
+                <h2 id="select-heading">Selected Fighter</h2>
+                <canvas id="selectedFighterDisplay"></canvas>
+                <div class="selectedFighter" id="selectedFighter"><span>No Fighter Selected</span></div>
             </div>
+            
         </div>
+        <a href="https://cisc474-online-service.onrender.com"><div class="slide-effect btn btn-right">PLAY</div></a>
 
-        <p>Join the fight now! <a href="https://cisc474-online-service.onrender.com"><button>Play Online</button></a></p>
     </main>
     <script src="select.js"></script>
-    <script src="fighterConfigurations.js"></script>
+    <script src="./commonUtils/common.js"></script>
+    <script src="./commonUtils/browserClasses.js"></script>
+    <script src="./commonUtils/fighterConfigurations.js"></script>
 </body>
 </html>
