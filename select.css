@@ -243,11 +243,13 @@ a {
 }
 
 .Controls {
-  position: relative;
+  position: absolute;
   z-index: 999;
   display: none;
-  width: 30%;
-  height: 30%;
+  top: 20%;
+  left: 15%;
+  width: 75%;
+  height: 75%;
 }
 
 .ctrlsBtn {
