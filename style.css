@@ -59,3 +59,11 @@ a:hover {
     position: relative;
     left: 40%;
 }
+
+.Controls {
+    position: relative;
+    z-index: 999;
+    display: none;
+    width: 30%;
+    height: 30%;
+}
