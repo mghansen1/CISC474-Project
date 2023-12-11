@@ -8,3 +8,62 @@ canvas {
     left:0;
     right:0;
 }
+
+/* body {
+    font-family: Arial, sans-serif;
+    background-image: url("./sprites/backgrounds/Original Backgrounds/background.gif");
+    text-align: center;
+    margin: 0;
+    padding: 0;
+} */
+
+body {
+    background: url("./sprites/backgrounds/Original Backgrounds/sword_bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 10% 10%;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+main {
+    position: absolute;
+    top: 35%;
+    left: 33%;
+    padding: 20px;
+    background-color: #333;
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #fff;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.login {
+    position: relative;
+    left: 40%;
+}
+
+.Controls {
+    position: relative;
+    z-index: 999;
+    display: none;
+    width: 30%;
+    height: 30%;
+}

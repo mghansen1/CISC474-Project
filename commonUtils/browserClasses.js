@@ -1,27 +1,25 @@
-class Sprite {
-    constructor({position, size, imageSrc, maxFrames, scale, offset, sprites}) {
-        this.position = position
-        this.size = size
+class BrowserSprite {
+    constructor({position, size, imageSrc, maxFrames, scale, offset = { x: 0, y: 0 }, sprites, facingDirection, framesHold = 10}) {
         this.image = new Image()
         this.image.src = imageSrc
+        this.position = position
+        this.size = size
         this.currentFrame = 0
         this.maxFrames = maxFrames
         this.scale = scale
         this.offset = offset
-        this.framesHold = 7
+        this.framesHold = framesHold
         this.frameBuffer = 0
         this.sprites = sprites
+        this.isFighter = true
+        this.facingDirection = facingDirection
     }
 
     draw() {
-        if (hitBoxesOn) {
+        if (hitBoxesOn && this.isFighter) {
             c.fillStyle = 'red';
             c.fillRect(this.position.x, this.position.y, this.size.width, this.size.height)
         }
-         
-        // const image = new Image()
-        // image.src = "./sprites/Warrior/Idle.png"
-        // c.drawImage(this.image, 0, 0)
         
         c.save();
         if (this.facingDirection == -1) {
@@ -32,7 +30,7 @@ class Sprite {
                 0,
                 this.image.width / this.maxFrames,
                 this.image.height,
-                -1 * (this.position.x + this.offset.x+70),
+                -1 * (this.position.x + this.offset.x+110),
                 this.position.y - this.offset.y,
                 (this.image.width / this.maxFrames) * this.scale,
                 this.image.height * this.scale
@@ -44,7 +42,7 @@ class Sprite {
                 0,
                 this.image.width / this.maxFrames,
                 this.image.height,
-                this.position.x - this.offset.x,
+                this.position.x - this.offset.x-20,
                 this.position.y - this.offset.y,
                 (this.image.width / this.maxFrames) * this.scale,
                 this.image.height * this.scale
@@ -52,7 +50,21 @@ class Sprite {
 
         }
         c.restore()
-            
+    }
+
+    drawBackground() {
+        c.drawImage(
+            this.image,
+            this.currentFrame * (this.image.width / this.maxFrames),
+            0,
+            this.image.width / this.maxFrames,
+            this.image.height,
+            this.position.x - this.offset.x,
+            this.position.y - this.offset.y,
+            this.size.width * this.scale,
+            this.size.height * this.scale
+            )
+        this.animateFrame()
     }
 
     animateFrame() {
@@ -68,7 +80,7 @@ class Sprite {
     }
 }
 
-class Fighter extends Sprite {
+class BrowserFighter extends BrowserSprite {
     constructor({
         velocity,
         position,
@@ -82,6 +94,7 @@ class Fighter extends Sprite {
         maxFrames,
         scale,
         offset,
+        remainingJumps,
         sprites
     }) {
         super({position, size, imageSrc, maxFrames, scale, offset, sprites})
@@ -95,6 +108,13 @@ class Fighter extends Sprite {
         this.attackDamage = attackDamage
         this.name = name
         this.damageDealt = false
+        this.gettingHit = false
+        this.maxJumps = 2
+        this.remainingJumps = remainingJumps
+        for (const sprite in this.sprites) {
+            sprites[sprite].image = new Image()
+            sprites[sprite].image.src = sprites[sprite].imageSrc
+        }
     }
 
     update() {
@@ -110,15 +130,15 @@ class Fighter extends Sprite {
             this.position.x = 0
             this.velocity.x = 0
         }
-        if (this.position.y + this.size.height + this.velocity.y > canvas.height) {
+        if (this.position.y + this.size.height + this.velocity.y >= canvas.height) {
             this.position.y = canvas.height - this.size.height
+            this.velocity.y = 0
         } else {
             this.velocity.y += gravity
         }
 
         
-        
-
+    
         // depreciate when added attack animation, call animateFrame()
         if (this.isAttacking && hitBoxesOn) {
             c.fillStyle = 'green';
@@ -137,33 +157,87 @@ class Fighter extends Sprite {
         this.switchSprite("attack")
     }
 
-    takeDamage({damageAmount}) {
+    takeDamage({damageAmount, enemyDirection}) {
         this.health -= damageAmount
         if (this.health < 0) {
             this.health = 0
+        } else {
+            this.getHit({enemyDirection: enemyDirection})
         }
         console.log(this.health);
 
     }
 
+    getHit({enemyDirection}) {
+        this.gettingHit = true
+        this.velocity.x = enemyDirection * 2
+        this.velocity.y -= 5
+        setTimeout(() => {
+            this.velocity.x = 0 
+            }, 100
+        );
+        this.switchSprite("getHit")
+    }
+
     switchSprite(sprite) {
+
+        if (this.image === this.sprites.attack.image && this.currentFrame < this.sprites.attack.maxFrames - 1) {
+            return
+        }
+
+        if (this.image === this.sprites.getHit.image && this.currentFrame < this.sprites.getHit.maxFrames - 1) {
+            return
+        }
+        
         // switch through idle, attack, dodge, run, jump, death sprites
         switch (sprite) {
             case "idle":
-                this.image.src = this.sprites.idle.imageSrc
-                this.maxFrames = this.sprites.idle.maxFrames
-                this.currentFrame = 0
-
+                if (this.image !== this.sprites.idle.image) {
+                    this.image = this.sprites.idle.image
+                    this.maxFrames = this.sprites.idle.maxFrames
+                    this.currentFrame = 0
+                    
+                }
                 break
+                
             case "attack":
-                this.image.src = this.sprites.attack.imageSrc
-                this.maxFrames = this.sprites.attack.maxFrames
-                this.currentFrame = 0
+                if (this.image !== this.sprites.attack.image) {
+                    this.image = this.sprites.attack.image
+                    this.maxFrames = this.sprites.attack.maxFrames
+                    this.currentFrame = 0
+                    
+                }
                 break
-
-
+            case "getHit":
+                if (this.image !== this.sprites.getHit.image) {   
+                    this.image = this.sprites.getHit.image
+                    this.maxFrames = this.sprites.getHit.maxFrames
+                    this.currentFrame = 0
+                }
+                break
+            case "run":
+                if (this.image !== this.sprites.run.image) {
+                    this.image = this.sprites.run.image
+                    this.maxFrames = this.sprites.run.maxFrames
+                    this.currentFrame = 0
+                }
+                break
+            case "jump":
+                if (this.image !== this.sprites.jump.image) {
+                    this.image = this.sprites.jump.image
+                    this.maxFrames = this.sprites.jump.maxFrames
+                    this.currentFrame = 0
+                }
+                break
+            case "fall":
+                if (this.image !== this.sprites.fall.image) {
+                    this.image = this.sprites.fall.image
+                    this.maxFrames = this.sprites.fall.maxFrames
+                    this.currentFrame = 0
+                }
+                break   
         }
     }
-
-
 }
+
+module.exports = { BrowserSprite, BrowserFighter }

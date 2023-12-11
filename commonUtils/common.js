@@ -39,8 +39,8 @@ function determineWinner({player, enemy}) {
 
 
 }
- 
 function decreaseTime() {
-    
-
+    console.log("time")
 }
+
+module.exports = { collisionDetection, determineWinner, decreaseTime }

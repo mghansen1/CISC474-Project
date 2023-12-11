@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="select.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Fight Club Home</title>
+</head>
+<body>
+
+    <div id="controlsBtn" onClick="toggleImage()" class="slide-effect ctrlsBtn">SHOW CONTROLS</div>
+    <img id="howToPlay" class="Controls" src="sprites/UI/OnlineControls.png">
+
+    <main>
+        <div id="heading"><h1>--Select Character--</h1></div>
+        <div class="character-selection">
+            <div class="fighter-list">
+                <div class="fighter" id="fighter1"><img src="./sprites/Warrior/Still.png"><span>Warrior</span></div>
+                <div class="fighter" id="fighter2"><img src="./sprites/Wizard/Still.png"><span>Wizard</span></div>
+                <div class="fighter" id="fighter3"><img src="./sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
+                <div class="fighter" id="fighter4"><img src="./sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
+            </div>
+            <div class="selected-fighter">
+                <h2 id="select-heading">Selected Fighter</h2>
+                <canvas id="selectedFighterDisplay"></canvas>
+                <div class="selectedFighter" id="selectedFighter"><span>No Fighter Selected</span></div>
+            </div>
+            
+        </div>
+        <a href="https://cisc474-online-service.onrender.com"><div class="slide-effect btn btn-right">PLAY</div></a>
+
+    </main>
+    <script src="UI.js"></script>
+    <script src="select.js"></script>
+    <script src="../CISC474-Project/commonUtils/common.js"></script>
+    <script src="../CISC474-Project/commonUtils/browserClasses.js"></script>
+    <script src="../CISC474-Project/commonUtils/fighterConfigurations.js"></script>
+</body>
+</html>

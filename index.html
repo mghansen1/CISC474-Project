@@ -4,27 +4,29 @@
     <link rel="stylesheet" href="style.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>CISC474 Game</title>
+    <title>Fight Club Home</title>
 </head>
-
 <body>
+    <header>Fight Club</h1> 
+        <a href="#"><button class="login">Login</button></a>
+        <div id="user-info" style="text-align: right; padding: 10px;">
+        </div>
+        <button id="logoutButton">Logout</button>
+    </header>
 
-    <div id="user-info" style="text-align: right; padding: 10px;">
-    </div>
-    
-    <button id="logoutButton">Logout</button>
+    <main>
+        <p>Welcome to Fight Club! Get ready for an epic battle.</p>
+        
+        <!-- Add more content, links, or buttons as needed -->
 
-    <canvas>
-    </canvas>
-
-    <script src="commonUtils/common.js"></script>
-    <script src="commonUtils/classes.js"></script>
-    <script src="index.js"></script>
+        <p>Join the fight now! <a href="./game-local/selectLocal.html"><button>Play Game</button></a></p>
+        <p>Join the fight now! <a href="./select.html"><button>Play Online</button></a></p>
+    </main>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-
+    
         const firebaseConfig = {
             apiKey: "AIzaSyDohJjNquDtThLMvwTUFOhPOK0PJ0aYkjs",
             authDomain: "cisc479-2d-game.firebaseapp.com",
@@ -34,15 +36,15 @@
             messagingSenderId: "56501690708",
             appId: "1:56501690708:web:5afb3ac3abfbd35a6c68c1"
         };
-
+    
         const app = initializeApp(firebaseConfig);
-
+    
         document.addEventListener("DOMContentLoaded", async function () {
             const userInfoDiv = document.getElementById("user-info");
             const logoutButton = document.getElementById("logoutButton");
             const database = getDatabase(app);
             const auth = getAuth();
-
+    
             // Check the authentication state when the page loads
             auth.onAuthStateChanged(async function (user) {
                 if (user) {
@@ -50,11 +52,11 @@
                     const userRef = ref(database, 'users/' + user.uid);
                     const userSnapshot = await get(userRef);
                     const userData = userSnapshot.val();
-
+    
                     if (userData && userData.username) {
                         const username = userData.username;
                         userInfoDiv.innerHTML = `Welcome, ${username}!`;
-
+    
                         logoutButton.style.display = "inline-block";
                     } else {
                         userInfoDiv.innerHTML = "";
