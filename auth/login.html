@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="authentication_page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Muli&display=swap" rel="stylesheet">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <div class="container3">
+        <div class="logo">
+            <span class="logo-text">FCi</span>
+            <span class="logo-description">Fight</span>
+            <span class="logo-description">Club</span>
+            <span class="logo-description">inc.</span>
+        </div>
+        <h1 class="title-paragraph">Sign In</h1>
+
+        <div class="input-container">
+            <input type="text" id="email" required>
+            <div class="label_line">Email Address</div>
+        </div>
+
+        <div class="input-container">
+            <input type="password" id="password" required>
+            <div class="label_line">Password</div>
+        </div>
+
+        <div class="go-back-link">
+            <a href="#" id="forgotPasswordLink">Forgot Your Password?</a>
+        </div>
+
+        <p id="error-message"
+            style="color: rgba(255, 52, 52, 0.623); display: none; margin-top: 10px; margin-bottom: 10px; text-align: center; display: flex; justify-content: center; align-items: center;">
+        </p>
+
+        <p id="success-message"
+            style="color: green; display: none; margin-top: 10px; margin-bottom: 10px; text-align: center; display: flex; justify-content: center; align-items: center;">
+        </p>
+
+        <button class="button-continue" id="loginButton">LOGIN</button>
+        <div class="go-back-link">
+            <p>Lost? <a href="/authentication_page.html">Back to all options</a></p>
+        </div>
+
+    </div>
+    <script type="module">
+
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getDatabase, set, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDohJjNquDtThLMvwTUFOhPOK0PJ0aYkjs",
+            authDomain: "cisc479-2d-game.firebaseapp.com",
+            databaseURL: "https://cisc479-2d-game-default-rtdb.firebaseio.com",
+            projectId: "cisc479-2d-game",
+            storageBucket: "cisc479-2d-game.appspot.com",
+            messagingSenderId: "56501690708",
+            appId: "1:56501690708:web:5afb3ac3abfbd35a6c68c1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+        document.addEventListener("DOMContentLoaded", function () {
+            const emailInput = document.getElementById("email");
+
+            // Retrieve the email from localStorage on page load
+            const storedEmail = localStorage.getItem("email");
+            if (storedEmail) {
+                emailInput.value = storedEmail;
+            }
+
+            const loginButton = document.getElementById("loginButton");
+            const successMessageElement = document.getElementById("success-message");
+            const errorMessageElement = document.getElementById("error-message");
+            const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+
+            loginButton.addEventListener("click", async (e) => {
+                e.preventDefault();
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                // Perform validation checks
+                if (!isEmailValid(email)) {
+                    displayError("Invalid email format.");
+                    return;
+                }
+
+                // Sign in the user
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                    // Login successful
+                    console.log("Login successful");
+                    hideError();
+
+                    window.location.href = "/index.html";
+
+                } catch (error) {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    displayError(errorMessage);
+                }
+            });
+
+            forgotPasswordLink.addEventListener("click", async (e) => {
+                e.preventDefault();
+                const email = document.getElementById("email").value;
+
+                // Perform validation checks
+                if (!isEmailValid(email)) {
+                    displayError("Invalid email format.");
+                    return;
+                }
+
+                // Send a password reset email
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    // Password reset email sent successfully
+                    console.log("Password reset email sent successfully");
+                    displaySuccess("Password reset email sent successfully");
+                    hideError();
+
+                } catch (error) {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    displayError(errorMessage);
+                }
+            });
+
+            function isEmailValid(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            function displaySuccess(message) {
+                successMessageElement.textContent = message;
+                successMessageElement.style.display = "block";
+            }
+
+            function displayError(message) {
+                errorMessageElement.textContent = message;
+                errorMessageElement.style.display = "block";
+            }
+
+            function hideError() {
+                errorMessageElement.style.display = "none";
+            }
+
+            const continueButton = document.getElementById("loginButton");
+
+            emailInput.addEventListener("input", function () {
+                const email = emailInput.value;
+                const validEmailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+                if (validEmailPattern.test(email)) {
+                    continueButton.classList.remove("disabled-button");
+                } else {
+                    continueButton.classList.add("disabled-button");
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

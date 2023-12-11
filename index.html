@@ -8,11 +8,63 @@
 </head>
 
 <body>
+
+    <div id="user-info" style="text-align: right; padding: 10px;">
+    </div>
     
+    <button id="logoutButton">Logout</button>
+
     <canvas>
     </canvas>
 
     <script src="commonUtils/common.js"></script>
     <script src="commonUtils/classes.js"></script>
     <script src="index.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDohJjNquDtThLMvwTUFOhPOK0PJ0aYkjs",
+            authDomain: "cisc479-2d-game.firebaseapp.com",
+            databaseURL: "https://cisc479-2d-game-default-rtdb.firebaseio.com",
+            projectId: "cisc479-2d-game",
+            storageBucket: "cisc479-2d-game.appspot.com",
+            messagingSenderId: "56501690708",
+            appId: "1:56501690708:web:5afb3ac3abfbd35a6c68c1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            const userInfoDiv = document.getElementById("user-info");
+            const logoutButton = document.getElementById("logoutButton");
+            const database = getDatabase(app);
+            const auth = getAuth();
+
+            // Check the authentication state when the page loads
+            auth.onAuthStateChanged(async function (user) {
+                if (user) {
+                    // User is signed in
+                    const userRef = ref(database, 'users/' + user.uid);
+                    const userSnapshot = await get(userRef);
+                    const userData = userSnapshot.val();
+
+                    if (userData && userData.username) {
+                        const username = userData.username;
+                        userInfoDiv.innerHTML = `Welcome, ${username}!`;
+
+                        logoutButton.style.display = "inline-block";
+                    } else {
+                        userInfoDiv.innerHTML = "";
+                        logoutButton.style.display = "none";
+                    }
+                } else {
+                    window.location.href = "/auth/authentication_page.html";
+                }
+            });
+        });
+    </script>
 </body>
+</html>
