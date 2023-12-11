@@ -9,12 +9,19 @@ canvas {
     right:0;
 }
 
-body {
+/* body {
     font-family: Arial, sans-serif;
     background-image: url("./sprites/backgrounds/Original Backgrounds/background.gif");
     text-align: center;
     margin: 0;
     padding: 0;
+} */
+
+body {
+    background: url("./sprites/backgrounds/Original Backgrounds/sword_bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 10% 10%;
 }
 
 header {
