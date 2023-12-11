@@ -253,6 +253,7 @@ a {
 }
 
 .ctrlsBtn {
+  margin-top: 8px;
   text-decoration: none;
   width: 5em;
   font-size: 20px;
