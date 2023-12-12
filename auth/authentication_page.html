@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="authentication_page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Muli&display=swap" rel="stylesheet">
+    <title>Authentication Page</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <span class="logo-text">FCi</span>
+            <span class="logo-description">Fight</span>
+            <span class="logo-description">Club</span>
+            <span class="logo-description">inc.</span>
+        </div>
+        <h1 class="title-paragraph">Sign In or Sign Up</h1>
+        <div class="input-container">
+            <input type="text" id="email" required>
+            <div class="label_line">Email Address</div>
+        </div>
+        <button class="button-continue" id="continue-btn">CONTINUE</button>
+    </div>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js';
+        import { getDatabase, ref, query, orderByChild, equalTo, get } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDohJjNquDtThLMvwTUFOhPOK0PJ0aYkjs",
+            authDomain: "cisc479-2d-game.firebaseapp.com",
+            databaseURL: "https://cisc479-2d-game-default-rtdb.firebaseio.com",
+            projectId: "cisc479-2d-game",
+            storageBucket: "cisc479-2d-game.appspot.com",
+            messagingSenderId: "56501690708",
+            appId: "1:56501690708:web:5afb3ac3abfbd35a6c68c1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+
+        async function checkIfEmailExists(email) {
+            const usersRef = ref(database, 'users');
+            const usersSnapshot = await get(usersRef);
+            const usersData = usersSnapshot.val();
+
+            if (!usersData) {
+                return false; // No users in the database
+            }
+
+            // Check if the email already exists in the database
+            return Object.values(usersData).some(user => user.email.toLowerCase() === email.toLowerCase());
+        }
+
+        const emailInput = document.getElementById("email");
+        const continueButton = document.getElementById("continue-btn");
+
+        // Retrieve the email from localStorage on page load
+        const storedEmail = localStorage.getItem("email");
+        if (storedEmail) {
+            emailInput.value = storedEmail;
+        }
+
+        emailInput.addEventListener("input", function () {
+            const email = emailInput.value;
+            const validEmailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (validEmailPattern.test(email)) {
+                continueButton.classList.remove("disabled-button");
+            } else {
+                continueButton.classList.add("disabled-button");
+            }
+        });
+
+        document.getElementById('continue-btn').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+
+            // Save the email to localStorage
+            localStorage.setItem("email", email);
+
+            // Check if the email exists in your Firebase Realtime Database
+            const emailExists = await checkIfEmailExists(email);
+            if (!emailExists) {
+                // Redirect the user to the register page
+                window.location.href = "https://mghansen1.github.io/CISC474-Project/auth/register.html"; // Replace with your actual register page URL
+            } else {
+                // Redirect the user to the login page
+                window.location.href = "https://mghansen1.github.io/CISC474-Project/auth/login.html"; // Replace with your actual login page URL
+            }
+            document.getElementById('email').value = '';
+        });
+
+        document.getElementById("email").addEventListener("keydown", (event) => {
+            if (event.key === "Enter" && !continueButton.hasAttribute("disabled")) {
+                // Only trigger the click event if the button is not disabled
+                event.preventDefault();
+                continueButton.click();
+            }
+        });
+    </script>
+</body>
+<!-- <body>
+    <div class="container">
+        <div class="auth-box">
+            <div class="logo">
+                <span class="logo-text">FCi</span>
+                <span class="logo-description">Fight</span>
+                <span class="logo-description">Club</span>
+                <span class="logo-description">inc.</span>
+            </div>
+            <h1 class="title-paragraph">Sign In or Sign Up</h1>
+            <div class="input-container">
+                <input type="text" id="email-input" placeholder=" ">
+                <label for="email-input">Email Address</label>
+                <div id="email-error" class="error-message"></div>
+            </div>
+            <button id="continue-button" disabled>CONTINUE</button>
+        </div>
+    </div>
+    <script>
+        const emailInput = document.getElementById('email-input');
+        const emailError = document.getElementById('email-error');
+        const continueButton = document.getElementById('continue-button');
+
+        emailInput.addEventListener('input', function () {
+            if (isValidEmail(this.value)) {
+                emailError.textContent = '';
+                emailInput.style.borderColor = '';
+                continueButton.removeAttribute('disabled');
+            } else {
+                emailError.textContent = 'Invalid email';
+                emailInput.style.borderColor = 'rgba(225, 80, 80, 0.774)';
+                continueButton.setAttribute('disabled', 'true');
+            }
+        });
+
+        function isValidEmail(email) {
+            // Use a regular expression to validate the email format.
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</body> -->
+
+</html>

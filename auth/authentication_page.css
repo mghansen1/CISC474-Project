@@ -1,0 +1,192 @@
+/* ========================================================================== */
+/* universal normalizer */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+/* ========================================================================== */
+
+.container {
+    border-radius: 5px;
+    background-color: rgb(35, 35, 35);
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0;
+}
+
+.container2 {
+    border-radius: 5px;
+    background-color: rgb(35, 35, 35);
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0;
+    margin-bottom: 0px;
+}
+
+.container3 {
+    border-radius: 5px;
+    background-color: rgb(35, 35, 35);
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0;
+}
+
+/* ========================================================================== */
+/* input box's */
+body {
+    height: 100%;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    background-color: rgb(17, 17, 17);
+    user-select: none;
+}
+
+.input-container {
+    position: relative;
+    height: 100px;
+    line-height: 80px;
+    max-width: 75%;
+
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.input-container input {
+    position: absolute;
+    top: 4%;
+    width: 100%;
+    outline: none;
+    font-size: 1.2em;
+    padding: 0 30px;
+    line-height: 70px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    transition: 0.1s ease;
+    z-index: 1;
+}
+
+.label_line {
+    position: absolute;
+    font-size: 1em;
+    color: #ccc;
+    padding: 0 10px;
+    margin: 0 20px;
+    background-color: rgb(35, 35, 35);
+    transition: 0.2s ease;
+}
+
+.input-container input:focus,
+.input-container input:valid {
+    color: #ccc;
+    top: -1%;
+    border: 2px solid white;
+}
+
+.input-container input:focus+.label_line,
+.input-container input:valid+.label_line {
+    color: #ccc;
+    height: 30px;
+    line-height: 30px;
+    transform: translate(-15px, -16px) scale(0.88);
+    z-index: 2;
+}
+
+
+/* ========================================================================== */
+/* logo css */
+.logo {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 70px;
+}
+
+.logo-text {
+    font-family: "Muli";
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black; /* Text color */
+    background-color: white; /* Background color */
+    margin: 0;
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 5px; 
+}
+
+.logo-description {
+    font-family: "Muli";
+    font-size: 0.5rem;
+    color: white;
+    margin: 0;
+}
+
+
+/* ========================================================================== */
+.title-paragraph {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-style: none;
+}
+
+.button-continue {
+    display: block;
+    width: 75%; 
+    height: 70px; 
+    margin: 0 auto; 
+    border-radius: 5px;
+    background-color:rgb(111, 108, 255);
+    border: none;
+    outline: none;
+    color: white;
+}
+
+.button-continue:hover {
+    background-color: rgb(143, 139, 253); 
+}
+
+.disabled-button {
+    background-color: rgba(111, 108, 255, 0.525) !important;
+    color: #ccc;
+    pointer-events: none;
+}
+
+.go-back-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.go-back-link p {
+    margin: 0;
+    color: #ccc;
+}
+
+.go-back-link a {
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+/* ========================================================================== */
+/* ========================================================================== */
+/* ========================================================================== */

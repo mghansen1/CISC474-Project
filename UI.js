@@ -4,9 +4,9 @@ function toggleImage() {
 
     if (image.style.display === "none" || image.style.display === "") {
       image.style.display = "block";
-      button.textContent = "Hide Controls"
+      button.textContent = "HIDE CONTROLS"
     } else {
       image.style.display = "none";
-      button.textContent = "Show Controls"
+      button.textContent = "SHOW CONTROLS"
     }
   }
