@@ -23,8 +23,8 @@ const bg = new BrowserSprite({
 })
 bg.isFighter = false
 
-const player1 = new BrowserFighter(fighterConfigurations({character: "Warrior", player: "p1"}))
-const player2 = new BrowserFighter(fighterConfigurations({character: "Martial_hero", player: "p2"}))
+const player1 = new BrowserFighter(fighterConfigurations({character: "Fantasy_Warrior_Big", player: "p1"}))
+const player2 = new BrowserFighter(fighterConfigurations({character: "Wizard", player: "p2"}))
 
 const keyDown = {
     ArrowLeft: {
