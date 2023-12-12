@@ -8,7 +8,7 @@ canvas.height = 576;
 c.fillStyle = "blue";
 c.fillRect(0, 0, canvas.width, canvas.height)  
 
-const socket = io();
+const socket = io("https://cisc474-online-service.onrender.com");
 frontEndPlayers = {}
 let hitBoxesOn = false;
 let selfID;

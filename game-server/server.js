@@ -3,7 +3,11 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+      origin: "http://localhost:10000"
+    }
+  });
 const path = require("path")
 const PORT = process.env.PORT || 10000
 
@@ -15,7 +19,7 @@ const { collisionDetection, determineWinner, decreaseTime } = require('../common
 const { BrowserSprite, BrowserFighter } = require('../commonUtils/browserClasses.js');
 const { Sprite, Fighter } = require('./serverClasses.js');
 
-MAX_ROOM_PLAYERS = 2
+MAX_ROOM_PLAYERS = 4
 backEndPlayers = {}
 playerReg = {}
 clientNo = 0
