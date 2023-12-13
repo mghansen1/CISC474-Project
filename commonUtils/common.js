@@ -19,21 +19,24 @@ function collisionDetection({player, enemy}) {
 
 
 let time = 60;
-function determineWinner({player, enemy}) {
+function determineWinner({player, enemy}) {    
     if (player.health == 0 && enemy.health != 0) {
         console.log(enemy.name + " Wins! 0")
+        document.getElementById('displayWinner').innerHTML = enemy.name + " Wins!";
     } else if (enemy.health == 0 && player.health != 0) {
         console.log(player.name + " Wins! 0") 
+        document.getElementById('displayWinner').innerHTML = player.name + " Wins!"
     }
-
 
     if (time === 0) {
         if (player.health > enemy.health) {
             console.log(player.name + " Wins!")
+            document.getElementById('displayWinner').innerHTML = player.name + " Wins!";
         } else if (player.health < enemy.health) {
             console.log(enemy.name + " Wins!")
+            document.getElementById('displayWinner').innerHTML = enemy.name + " Wins!";
         } else {
-            console.log("Tie")
+            console.log("Tie!")
         }
     }
 
