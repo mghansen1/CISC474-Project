@@ -102,6 +102,7 @@ function animate() {
         if (player1.damageDealt === false) {
             player2.takeDamage({damageAmount: player1.attackDamage,enemyDirection: player1.facingDirection})
             player1.damageDealt = true
+            document.getElementById("player1Health").style.width = player2.health/500*100 + '%';
             determineWinner({player: player1, enemy: player2})
         } 
         
@@ -140,6 +141,7 @@ function animate() {
         if (player2.damageDealt === false) {
             player1.takeDamage({damageAmount: player2.attackDamage, enemyDirection: player2.facingDirection})
             player2.damageDealt = true
+            document.getElementById("player2Health").style.width = player1.health/500*100 + '%';
             determineWinner({player: player2, enemy: player1})
         }  
     }
