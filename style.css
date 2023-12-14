@@ -169,6 +169,6 @@ a{
   }
 
 .localButton {
-    position: relative;
+    position: absolute;
     left: 40%;
 }
