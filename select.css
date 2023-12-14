@@ -143,10 +143,10 @@ canvas {
 }
 
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0; 
   padding: 0;
-  height: 100vh;
+  height: 130vh;
   background: url(./sprites/backgrounds/Original\ Backgrounds/character_selection_bg.webp);
   background-size: cover;
   background-repeat: no-repeat;
