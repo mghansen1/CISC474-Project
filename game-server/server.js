@@ -6,7 +6,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
     cors: {
-      origin: ["http://localhost:10000", "http://localhost:8080", "https://mghansen1.github.io/CISC474-Project/online-client/client.html"]
+      origin: ["http://localhost:10000", "http://localhost:8080", "https://mghansen1.github.io"]
     }
   });
 const path = require("path")
@@ -20,7 +20,7 @@ const { collisionDetection, determineWinner, decreaseTime } = require('../common
 const { BrowserSprite, BrowserFighter } = require('../commonUtils/browserClasses.js');
 const { Sprite, Fighter } = require('./serverClasses.js');
 
-MAX_ROOM_PLAYERS = 4
+MAX_ROOM_PLAYERS = 2
 backEndPlayers = {}
 playerReg = {}
 clientNo = 0
