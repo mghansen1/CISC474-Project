@@ -1,3 +1,10 @@
+characterMap = {
+    "Warrior": 'Warrior',
+    "Wizard": 'Wizard',
+    "Martial Hero": "Martial_hero",
+    "Fantasy Warrior":"Fantasy_Warrior"
+}
+
 
 function fighterConfigurations({character, player}) {
     let playerX

@@ -261,3 +261,7 @@ a {
   text-align: center;
   background: linear-gradient(to right, #03effe, #026be2)
 }
+
+#playButton.disabled {
+  background: gray
+}
