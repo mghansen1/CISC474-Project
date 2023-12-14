@@ -48,6 +48,14 @@ const keyDown = {
     }
 }
 
+function redirectToNewPage() {
+    window.location.href = "../index.html";
+}
+
+// Timer function to redirect after 5 seconds
+function pageResetTimer() {
+    setTimeout(redirectToNewPage, 5000); // 5000 milliseconds = 5 seconds
+}
 
 
 //main loop
@@ -104,7 +112,11 @@ function animate() {
             player2.takeDamage({damageAmount: player1.attackDamage,enemyDirection: player1.facingDirection})
             player1.damageDealt = true
             document.getElementById("player2Health").style.width = player2.health/500*100 + '%';
-            determineWinner({player: player1, enemy: player2})
+            let val = determineWinner({player: player1, enemy: player2})
+            if (val) {
+                document.getElementById('displayWinner').innerHTML = val + " Wins!"
+                pageResetTimer()
+            }
         } 
         
     }
@@ -143,7 +155,12 @@ function animate() {
             player1.takeDamage({damageAmount: player2.attackDamage, enemyDirection: player2.facingDirection})
             player2.damageDealt = true
             document.getElementById("player1Health").style.width = player1.health/500*100 + '%';
-            determineWinner({player: player2, enemy: player1})
+            let val = determineWinner({player: player2, enemy: player1})
+            if (val) {
+                document.getElementById('displayWinner').innerHTML = val + " Wins!"
+                pageResetTimer()
+
+            }
         }  
     }
 

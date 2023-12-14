@@ -150,7 +150,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on("characterChoice", (data) => {
-        console.log(data)
+        console.log("character choice data")
         
     })
 

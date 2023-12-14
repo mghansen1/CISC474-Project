@@ -9,11 +9,14 @@ const path = true ? "https://mghansen1.github.io/CISC474-Project/" : ".."
 
 function fighterConfigurations({character, player}) {
     let playerX
+    let name;
     let playerY = 0;
     if (player === 'p1') {
         playerX = 200
+        name = "Player 1"
     } else {
         playerX = 500
+        name = "Player 2"
     }
 
     const fighterConfigurations = {
@@ -37,7 +40,7 @@ function fighterConfigurations({character, player}) {
             facingDirection: 1,
             health: 500,
             attackDamage: 10,
-            name: "Player 2",
+            name: name,
             imageSrc: path + "sprites/Warrior/Idle.png",
             maxFrames: 10,
             scale: 3.5,
@@ -101,7 +104,7 @@ function fighterConfigurations({character, player}) {
             facingDirection: 1,
             health: 500,
             attackDamage: 10,
-            name: "Player 2",
+            name: name,
             imageSrc: path + "sprites/Fantasy Warrior/Idle.png",
             maxFrames: 10,
             scale: 3.5,
@@ -158,7 +161,7 @@ function fighterConfigurations({character, player}) {
             facingDirection: 1,
             health: 500,
             attackDamage: 10,
-            name: "Player 2",
+            name: name,
             imageSrc: ".../sprites/Wizard/Idle.png",
             maxFrames: 6,
             scale: 2.2,
@@ -217,7 +220,7 @@ function fighterConfigurations({character, player}) {
             facingDirection: -1,
             health: 500,
             attackDamage: 10,
-            name: "Player 1",
+            name: name,
             imageSrc: path + "sprites/Warrior/Idle.png",
             maxFrames: 10,
             scale: 4.2,
@@ -273,7 +276,7 @@ function fighterConfigurations({character, player}) {
             facingDirection: 1,
             health: 500,
             attackDamage: 10,
-            name: "Player 2",
+            name: name,
             imageSrc: path + "sprites/Fantasy Warrior/Idle.png",
             maxFrames: 10,
             scale: 3.5,
@@ -334,7 +337,7 @@ function fighterConfigurations({character, player}) {
             facingDirection: 1,
             health: 500,
             attackDamage: 10,
-            name: "Player 2",
+            name: name,
             imageSrc: path + "sprites/Martial Hero/Idle.png",
             maxFrames: 4,
             scale: 2.8,
@@ -396,7 +399,7 @@ function fighterConfigurations({character, player}) {
             facingDirection: 1,
             health: 500,
             attackDamage: 15,
-            name: "Player 2",
+            name: name,
             imageSrc: path + "sprites/Wizard/Idle.png",
             maxFrames: 6,
             scale: 1.8,
