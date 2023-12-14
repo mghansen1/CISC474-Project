@@ -6,7 +6,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
     cors: {
-      origin: ["http://localhost:10000", "http://localhost:8080", "https://mghansen1.github.io/CISC474-Project"]
+      origin: ["http://localhost:10000", "http://localhost:8080", "https://mghansen1.github.io/CISC474-Project/online-client/client.html"]
     }
   });
 const path = require("path")
