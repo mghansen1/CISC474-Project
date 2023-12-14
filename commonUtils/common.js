@@ -22,10 +22,15 @@ let time = 60;
 function determineWinner({player, enemy}) {    
     if (player.health == 0 && enemy.health != 0) {
         console.log(enemy.name + " Wins! 0")
-        document.getElementById('displayWinner').innerHTML = enemy.name + " Wins!";
+        return enemy.name;
+        // document.getElementById('displayWinner').innerHTML = enemy.name + " Wins!";
     } else if (enemy.health == 0 && player.health != 0) {
         console.log(player.name + " Wins! 0") 
-        document.getElementById('displayWinner').innerHTML = player.name + " Wins!"
+        return player.name;
+        // document.getElementById('displayWinner').innerHTML = player.name + " Wins!"
+    }
+    else {
+        return null
     }
 
     if (time === 0) {
