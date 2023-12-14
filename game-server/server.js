@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
+var cors = require('cors')
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
     cors: {
-      origin: ["http://localhost:10000", "http://localhost:8080"]
+      origin: ["http://localhost:10000", "http://localhost:8080", "https://mghansen1.github.io/CISC474-Project"]
     }
   });
 const path = require("path")
@@ -26,6 +27,8 @@ clientNo = 0
 let roomNo
 let rooms = {}
 
+
+app.use(cors())
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './public/client.html'));
 });
@@ -132,6 +135,7 @@ io.on('connection', (socket) => {
         io.to(backEndPlayers[id].roomNo).emit("updateConnections", playerReg[id])
     }
 
+
     socket.on("disconnect", () => {
         console.log("disconnection")
         const roomId = backEndPlayers[socket.id]?.roomNo
@@ -142,6 +146,11 @@ io.on('connection', (socket) => {
         delete playerReg[socket.id]
         delete backEndPlayers[socket.id]
         io.emit("updateConnections", playerReg)
+        
+    })
+
+    socket.on("characterChoice", (data) => {
+        console.log(data)
         
     })
 

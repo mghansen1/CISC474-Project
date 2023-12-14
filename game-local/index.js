@@ -22,8 +22,8 @@ const bg = new BrowserSprite({
     facingDirection: 1
 })
 bg.isFighter = false
-
-const player1 = new BrowserFighter(fighterConfigurations({character: "Fantasy_Warrior_Big", player: "p1"}))
+const selectedFighter = localStorage.getItem("myFighter-local");
+const player1 = new BrowserFighter(fighterConfigurations({character: characterMap[selectedFighter], player: "p1"}))
 const player2 = new BrowserFighter(fighterConfigurations({character: "Wizard", player: "p2"}))
 
 const keyDown = {
@@ -240,7 +240,7 @@ window.addEventListener('keyup', (e) => {
             keyDown.d.pressed = false
             break;
         case "w":
-            if (player1.remainingJumps >= 0) {
+            if (player1.remainingJumps > 0) {
                 player1.velocity.y = 0
             }
             break;

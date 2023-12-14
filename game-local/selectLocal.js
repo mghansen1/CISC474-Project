@@ -1,10 +1,3 @@
-characterMap = {
-  "Warrior": 'Warrior',
-  "Wizard": 'Wizard',
-  "Martial Hero": "Martial_hero",
-  "Fantasy Warrior":"Fantasy_Warrior"
-}
-
 const canvas = document.getElementById("selectedFighterDisplay")
 const c = canvas.getContext('2d')
 canvas.width = 220
@@ -25,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fighter.addEventListener('click', function() {
         player = null
         const selectedFighter = fighter.textContent;
+        localStorage.setItem("myFighter-local", selectedFighter);
         player = new BrowserFighter(fighterConfigurations({character: characterMap[selectedFighter], player: "p1"}))
         player.switchSprite("idle")
         player.position.x=50

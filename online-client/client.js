@@ -2,18 +2,16 @@ const canvas = document.getElementById("canvas")
 const c = canvas.getContext('2d')
 const ping = document.getElementById("ping")
 
-
 canvas.width = 1224;
 canvas.height = 576;
 c.fillStyle = "blue";
-c.fillRect(0, 0, canvas.width, canvas.height)  
+c.fillRect(0, 0, canvas.width, canvas.height) 
 
 const socket = io("https://cisc474-online-service.onrender.com");
 frontEndPlayers = {}
 let hitBoxesOn = false;
 let selfID;
 const gravity = 0
-
 
 let bg;
 socket.on("connect", () => {
@@ -38,64 +36,70 @@ socket.on("connect", () => {
 socket.on("updateConnections", (player)=>{
 
     if (!frontEndPlayers[player.id]) {
-        frontEndPlayers[player.id] = new BrowserFighter({
-            position: {
-                x: player.x,
-                y: player.y
-            },
-            velocity: {
-                x: 0,
-                y: 0
-            }, 
-            size: {
-                width: 75,
-                height: 140
-            },
-            attackArea: {
-                height: 90,
-                width: 210
-            },
-            facingDirection: 1,
-            health: 500,
-            attackDamage: 10,
-            name: "Player 2",
-            imageSrc: "../sprites/Warrior/Idle.png",
-            maxFrames: 10,
-            scale: 3.5,
-            offset: {
-                x: 205,
-                y: 163
-            },
-            remainingJumps: 2,
-            sprites: {
-                idle: {
-                    imageSrc: "../sprites/Warrior/Idle.png",
-                    maxFrames: 10
-                },
-                attack: {
-                    imageSrc: "../sprites/Warrior/Attack1.png",
-                    maxFrames: 4
-                },
-                getHit: {
-                    imageSrc: "../sprites/Warrior/Get Hit.png",
-                    maxFrames: 3
-                },
-                run: {
-                    imageSrc: "../sprites/Warrior/Run.png",
-                    maxFrames: 6
-                },
-                jump: {
-                    imageSrc: "../sprites/Warrior/Jump.png",
-                    maxFrames: 2
-                },
-                fall: {
-                    imageSrc: "../sprites/Warrior/Fall.png",
-                    maxFrames: 2
-                },
+        // frontEndPlayers[player.id] = new BrowserFighter({
+        //     position: {
+        //         x: player.x,
+        //         y: player.y
+        //     },
+        //     velocity: {
+        //         x: 0,
+        //         y: 0
+        //     }, 
+        //     size: {
+        //         width: 75,
+        //         height: 140
+        //     },
+        //     attackArea: {
+        //         height: 90,
+        //         width: 210
+        //     },
+        //     facingDirection: 1,
+        //     health: 500,
+        //     attackDamage: 10,
+        //     name: "Player 2",
+        //     imageSrc: "../sprites/Warrior/Idle.png",
+        //     maxFrames: 10,
+        //     scale: 3.5,
+        //     offset: {
+        //         x: 205,
+        //         y: 163
+        //     },
+        //     remainingJumps: 2,
+        //     sprites: {
+        //         idle: {
+        //             imageSrc: "../sprites/Warrior/Idle.png",
+        //             maxFrames: 10
+        //         },
+        //         attack: {
+        //             imageSrc: "../sprites/Warrior/Attack1.png",
+        //             maxFrames: 4
+        //         },
+        //         getHit: {
+        //             imageSrc: "../sprites/Warrior/Get Hit.png",
+        //             maxFrames: 3
+        //         },
+        //         run: {
+        //             imageSrc: "../sprites/Warrior/Run.png",
+        //             maxFrames: 6
+        //         },
+        //         jump: {
+        //             imageSrc: "../sprites/Warrior/Jump.png",
+        //             maxFrames: 2
+        //         },
+        //         fall: {
+        //             imageSrc: "../sprites/Warrior/Fall.png",
+        //             maxFrames: 2
+        //         },
             
         
-            }
-        })
+        //     }
+        // })
+        const selectedFighter = characterMap[localStorage.getItem("myFighter-online")];
+        frontEndPlayers[player.id] = new BrowserFighter(fighterConfigurations({character: selectedFighter, player: "p1"}))
+        const data = fighterConfigurations({character: selectedFighter, player: "p1"})
+        data.x = player.x
+        data.y = player.y
+        socket.emit("characterChoice", data)
     }
 
 })
@@ -136,8 +140,8 @@ setInterval(() => {
     measurePing();
 }, 3000);
 
-var background = new Image();
-background.src = "../sprites/background.gif";
+// var background = new Image();
+// background.src = "../sprites/background.gif";
 let animationId
 function animate() {
     animationId = requestAnimationFrame(animate)
