@@ -8,7 +8,7 @@ canvas.height = 576;
 c.fillStyle = "blue";
 c.fillRect(0, 0, canvas.width, canvas.height)  
 
-const socket = io("https://cisc474-online-service.onrender.com");
+const socket = io();
 frontEndPlayers = {}
 let hitBoxesOn = false;
 let selfID;
@@ -65,6 +65,10 @@ socket.on("updateConnections", (player)=>{
             offset: {
                 x: 205,
                 y: 163
+            },
+            facingDirectionOffset: {
+                forward: 20,
+                backward: 73
             },
             remainingJumps: 2,
             sprites: {
@@ -136,8 +140,8 @@ setInterval(() => {
     measurePing();
 }, 3000);
 
-var background = new Image();
-background.src = "./sprites/background.gif";
+// var background = new Image();
+// background.src = "./sprites/background.gif";
 let animationId
 function animate() {
     animationId = requestAnimationFrame(animate)
