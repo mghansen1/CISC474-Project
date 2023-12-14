@@ -2,9 +2,18 @@
     font-family: myFirstFont; src: url("./fonts/SHPinscher-Regular.otf");
 }
 
-header{
+header {
     font-family: myFirstFont;
-    font-size: xx-large;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 50px;
+    align-items: center;
 }
 
 div, h1, main{
@@ -31,10 +40,14 @@ canvas {
 } */
 
 body {
+    overflow: hidden;
+    margin: 0; 
+    padding: 0;
+    height: 100vh;
     background: url("./sprites/backgrounds/Original Backgrounds/sword_bg.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 10% 10%;
+    background-position: center;
 }
 
 header {
@@ -72,7 +85,7 @@ a:hover {
 
 .login {
     position: relative;
-    left: 80%;
+    left: 75%;
 }
 
 .Controls {
