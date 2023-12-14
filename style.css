@@ -75,12 +75,8 @@ p {
 }
 
 a {
-    color: #007bff;
+    color: #ffffff;
     text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 .login {
@@ -124,6 +120,7 @@ a {
 }
 
 .btn {
+  margin: 5px;
     text-decoration: none;
     width: 5em;
     font-size: 38px;
@@ -141,7 +138,7 @@ a {
   .slide-effect::before {
     content:"";
     position: absolute;
-    height: 120px;
+    height: 160px;
     width: 20px;
     background: #f3f3f3;
     box-shadow: 0 0 10px #fff;
@@ -153,7 +150,7 @@ a {
   }
   
   .slide-effect:hover::before {
-    transform: rotate(-20deg) translate(160px, 70px)
+    transform: rotate(-20deg) translate(210px, 110px)
   }
 
   .shine-line {
@@ -173,16 +170,22 @@ a {
     box-shadow: 0 0 10px #fff;
     filter: blur(3px);
     opacity: 0.8;
-    top: 30px;
+    top: 50px;
     transition: 0.65s;
     transform: rotate(-20deg) translateX(-140px) translateY(-90px);
   }
 
   .shine-line:hover::before {
-    transform: rotate(-20deg) translate(310px, 10px)
+    transform: rotate(-20deg) translate(310px, 30px)
   }
 
 .localButton {
     position: absolute;
     left: 50%;
+}
+
+.full-width-div {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
 }

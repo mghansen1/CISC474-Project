@@ -1,5 +1,5 @@
 class BrowserSprite {
-    constructor({position, size, imageSrc, maxFrames, scale, offset = { x: 0, y: 0 }, sprites, facingDirection, framesHold = 10}) {
+    constructor({position, size, imageSrc, maxFrames, scale, offset = { x: 0, y: 0 }, sprites, facingDirection, framesHold = 10,facingDirectionOffset}) {
         this.image = new Image()
         this.image.src = imageSrc
         this.position = position
@@ -13,6 +13,7 @@ class BrowserSprite {
         this.sprites = sprites
         this.isFighter = true
         this.facingDirection = facingDirection
+        this.facingDirectionOffset = facingDirectionOffset
     }
 
     draw() {
@@ -30,7 +31,7 @@ class BrowserSprite {
                 0,
                 this.image.width / this.maxFrames,
                 this.image.height,
-                -1 * (this.position.x + this.offset.x+110),
+                -1 * (this.position.x + this.offset.x + this.facingDirectionOffset.backward),
                 this.position.y - this.offset.y,
                 (this.image.width / this.maxFrames) * this.scale,
                 this.image.height * this.scale
@@ -42,7 +43,7 @@ class BrowserSprite {
                 0,
                 this.image.width / this.maxFrames,
                 this.image.height,
-                this.position.x - this.offset.x-20,
+                this.position.x - this.offset.x-20 + this.facingDirectionOffset.forward,
                 this.position.y - this.offset.y,
                 (this.image.width / this.maxFrames) * this.scale,
                 this.image.height * this.scale
@@ -95,9 +96,10 @@ class BrowserFighter extends BrowserSprite {
         scale,
         offset,
         remainingJumps,
-        sprites
+        sprites,
+        facingDirectionOffset
     }) {
-        super({position, size, imageSrc, maxFrames, scale, offset, sprites})
+        super({position, size, imageSrc, maxFrames, scale, offset, sprites, facingDirectionOffset})
         this.velocity = velocity
         this.lastkey
         this.attackArea = attackArea
