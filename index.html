@@ -19,7 +19,7 @@
         <a href="./select.html"><div class="slide-effect ctrlsBtn">ONLINE BATTLE</div></a>
     </div>
 
-    <!-- <script type="module">
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
@@ -41,6 +41,11 @@
             const logoutButton = document.getElementById("logoutButton");
             const database = getDatabase(app);
             const auth = getAuth();
+
+            logoutButton.addEventListener("click", async function() {
+                await signOut(auth);
+                location.reload(); // reload the page after signing out
+            });
     
             // Check the authentication state when the page loads
             auth.onAuthStateChanged(async function (user) {
@@ -64,6 +69,6 @@
                 }
             });
         });
-    </script> -->
+    </script>
 </body>
 </html>
