@@ -14,9 +14,9 @@
     <main>
         <div id="heading"><h1>--Select Character--</h1></div>
         <div class="character-selection">
-            <div class="selected-fighter">
+            <div class="selected-fighter" id="p1">
                 <h2 id="select-heading">Player 1 Selected Fighter</h2>
-                <canvas id="selectedFighterDisplay"></canvas>
+                <canvas id="selectedFighterDisplay1"></canvas>
                 <div class="selectedFighter" id="selectedFighter"><span>No Fighter Selected</span></div>
             </div>
             <div class="fighter-list">
@@ -25,14 +25,17 @@
                 <div class="fighter" id="fighter3"><img src="../sprites/Fantasy Warrior/Still.png"><span>Fantasy Warrior</span></div>
                 <div class="fighter" id="fighter4"><img src="../sprites/Martial Hero/Still.png"><span>Martial Hero</span></div>
             </div>
-            <div class="selected-fighter">
+            <div class="selected-fighter" id="p2">
                 <h2 id="select-heading">Player 2 Selected Fighter</h2>
-                <canvas id="selectedFighterDisplay"></canvas>
+                <canvas id="selectedFighterDisplay2"></canvas>
                 <div class="selectedFighter" id="selectedFighter"><span>No Fighter Selected</span></div>
             </div>
             
         </div>
-        <a href="play.html"><div class="slide-effect btn">PLAY</div></a>
+        <div class="full-width-div">
+            <a href="play.html"><div class="slide-effect btn">PLAY</div></a>
+        </div>
+        
 
     </main>
     <script src="../UI.js"></script>

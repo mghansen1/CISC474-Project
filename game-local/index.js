@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-let hitBoxesOn = true;
+let hitBoxesOn = false;
 canvas.width = 1224;
 canvas.height = 576;
 const gravity = .3;   
@@ -22,9 +22,10 @@ const bg = new BrowserSprite({
     facingDirection: 1
 })
 bg.isFighter = false
-const selectedFighter = localStorage.getItem("myFighter-local");
-const player1 = new BrowserFighter(fighterConfigurations({character: characterMap[selectedFighter], player: "p1"}))
-const player2 = new BrowserFighter(fighterConfigurations({character: "Wizard", player: "p2"}))
+const selectedFighter1 = localStorage.getItem("myFighter-local-p1");
+const selectedFighter2 = localStorage.getItem("myFighter-local-p2");
+const player1 = new BrowserFighter(fighterConfigurations({character: characterMap[selectedFighter1], player: "p1"}))
+const player2 = new BrowserFighter(fighterConfigurations({character: characterMap[selectedFighter2], player: "p2"}))
 
 const keyDown = {
     ArrowLeft: {
@@ -102,7 +103,7 @@ function animate() {
         if (player1.damageDealt === false) {
             player2.takeDamage({damageAmount: player1.attackDamage,enemyDirection: player1.facingDirection})
             player1.damageDealt = true
-            document.getElementById("player1Health").style.width = player2.health/500*100 + '%';
+            document.getElementById("player2Health").style.width = player2.health/500*100 + '%';
             determineWinner({player: player1, enemy: player2})
         } 
         
@@ -141,7 +142,7 @@ function animate() {
         if (player2.damageDealt === false) {
             player1.takeDamage({damageAmount: player2.attackDamage, enemyDirection: player2.facingDirection})
             player2.damageDealt = true
-            document.getElementById("player2Health").style.width = player1.health/500*100 + '%';
+            document.getElementById("player1Health").style.width = player1.health/500*100 + '%';
             determineWinner({player: player2, enemy: player1})
         }  
     }

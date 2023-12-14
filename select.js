@@ -12,12 +12,18 @@ canvas.height = 200
 let gravity = 0
 let hitBoxesOn = false
 let selectedFighter = null
+disablePlayButton()
 
 document.addEventListener('DOMContentLoaded', function() {
     const fighters = document.querySelectorAll('.fighter');
     const selectedFighterDisplay = document.getElementById('selectedFighter');
     let player;
     let myInterval;
+    let onlinePlayersInternval
+    onlinePlayersInternval = setInterval(() => {
+      checkPlayerCount()
+      }, 2000
+    );
     
     
 
@@ -77,5 +83,21 @@ function disablePlayButton() {
   const playButton = document.getElementById("playButton")
   if (playButton) {
     playButton.classList.add('disabled');
+  }
+}
+
+async function checkPlayerCount() {
+  try {
+    const response = await fetch('https://cisc474-online-service.onrender.com/active-players');
+    const result = await response.json();
+    
+    if (response.ok) {
+      document.getElementById("player-count").innerHTML = "Online Players: " + result
+    } else {
+      document.getElementById("player-count").innerHTML = "(Server Down) Online Players: 0"
+    }
+
+  } catch (error) {
+    document.getElementById("player-count").innerHTML = "(Server Down) Online Players: 0"
   }
 }
