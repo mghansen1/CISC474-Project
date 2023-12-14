@@ -83,7 +83,7 @@ a:hover {
     height: 30%;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -102,7 +102,7 @@ a{
 
 .ctrlsBtn {
     margin-top: 8px;
-    text-decoration: none;
+    text-decoration: red;
     width: 5em;
     font-size: 20px;
     border: 5px solid rgb(255, 255, 255);
@@ -120,6 +120,7 @@ a{
   }
   
   .btn:hover {
+    text-decoration: none;
     transition: 0.7s;
     border: 5px solid rgb(135, 95, 210);
   }
@@ -170,5 +171,5 @@ a{
 
 .localButton {
     position: absolute;
-    left: 40%;
+    left: 50%;
 }

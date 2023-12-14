@@ -70,8 +70,10 @@ function fighterConfigurations({character, player}) {
                     imageSrc: "../sprites/Warrior/Fall.png",
                     maxFrames: 2
                 },
-            
-        
+                death: {
+                    imageSrc: "../sprites/Warrior/Fall.png",
+                    maxFrames: 2
+                }
             }
         },
         Fantasy_Warrior_Big: {
