@@ -21,6 +21,7 @@
             <!-- player1 health bar-->
             <div
                 style="
+                    z-index: 100;
                     position: relative;
                     width: 100%;
                     /* display: flex;
@@ -34,6 +35,7 @@
                 <div 
                     id="player1Health"
                     style="
+                        z-index: 100;
                         position: absolute;
                         background: green;
                         top: 0;
@@ -48,6 +50,7 @@
             <div
                 id="timer"
                 style="
+                    z-index: 100;
                     background-color: black;
                     width: 100px;
                     height: 50px;
@@ -58,13 +61,12 @@
                     color: white;
                     border: 4px solid white;
                 "
-            >
-                <!-- 60 -->
-            </div>
+            ></div>
 
             <!-- player2 health bar -->
             <div
                 style="
+                    z-index: 100;
                     position: relative;
                     width: 100%;
                     border-top: 4px solid white;
@@ -76,6 +78,7 @@
                 <div 
                     id="player2Health"
                     style="
+                        z-index: 100;
                         position: absolute;
                         background: green;
                         width: 100%;
@@ -91,7 +94,7 @@
         <div
             id="displayWinner"
             style="
-                z-index: 2;
+                z-index: 100;
                 position: absolute;
                 color: white;
                 align-items: center;
