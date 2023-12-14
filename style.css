@@ -1,3 +1,16 @@
+@font-face { 
+    font-family: myFirstFont; src: url("./fonts/SHPinscher-Regular.otf");
+}
+
+header{
+    font-family: myFirstFont;
+    font-size: xx-large;
+}
+
+div, h1, main{
+    font-family: myFirstFont;
+}
+
 canvas {
     padding: 0;
     margin: auto;
@@ -39,7 +52,9 @@ main {
 }
 
 h1 {
-    color: #333;
+    font-family: myFirstFont;
+    color: #fff;
+    text-align: center;
 }
 
 p {
@@ -57,7 +72,7 @@ a:hover {
 
 .login {
     position: relative;
-    left: 40%;
+    left: 80%;
 }
 
 .Controls {
@@ -66,4 +81,94 @@ a:hover {
     display: none;
     width: 30%;
     height: 30%;
+}
+
+a{
+    text-decoration: none;
+}
+
+.slide-effect {
+    color: #fff;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0 40px;
+    padding: 15px 30px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 50px;
+    overflow: hidden;
+  }
+
+.ctrlsBtn {
+    margin-top: 8px;
+    text-decoration: none;
+    width: 5em;
+    font-size: 20px;
+    border: 5px solid rgb(255, 255, 255);
+    text-align: center;
+    background: linear-gradient(to right, #03effe, #026be2)
+}
+
+.btn {
+    text-decoration: none;
+    width: 5em;
+    font-size: 38px;
+    border: 5px solid rgb(255, 255, 255);
+    text-align: center;
+    background: linear-gradient(to right, #03effe, #026be2)
+  }
+  
+  .btn:hover {
+    transition: 0.7s;
+    border: 5px solid rgb(135, 95, 210);
+  }
+  
+  .slide-effect::before {
+    content:"";
+    position: absolute;
+    height: 120px;
+    width: 20px;
+    background: #f3f3f3;
+    box-shadow: 0 0 10px #fff;
+    filter: blur(1px);
+    opacity: 0.9;
+    top: -50px;
+    transition: 0.7s;
+    transform: rotate(-20deg) translateX(-150px);
+  }
+  
+  .slide-effect:hover::before {
+    transform: rotate(-20deg) translate(160px, 70px)
+  }
+
+  .shine-line {
+    overflow: hidden;
+  }
+
+  #select-heading {
+    overflow: hidden;
+  }
+
+  .shine-line::before {
+    content:"";
+    position: absolute;
+    height: 400px;
+    width: 20px;
+    background: #f3f3f3;
+    box-shadow: 0 0 10px #fff;
+    filter: blur(3px);
+    opacity: 0.8;
+    top: 30px;
+    transition: 0.65s;
+    transform: rotate(-20deg) translateX(-140px) translateY(-90px);
+  }
+
+  .shine-line:hover::before {
+    transform: rotate(-20deg) translate(310px, 10px)
+  }
+
+.localButton {
+    position: relative;
+    left: 40%;
 }

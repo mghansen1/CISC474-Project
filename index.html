@@ -8,20 +8,17 @@
 </head>
 <body>
     <header>Fight Club</h1> 
-        <a href="#"><button class="login">Login</button></a>
-        <div id="user-info" style="text-align: right; padding: 10px;">
-        </div>
-        <button id="logoutButton">Logout</button>
+        <a href="#"><button id="logoutButton" class="login">Logout</button></a>
+        <div id="user-info" style="text-align: right; padding: 10px;"></div>
     </header>
 
-    <main>
-        <p>Welcome to Fight Club! Get ready for an epic battle.</p>
-        
-        <!-- Add more content, links, or buttons as needed -->
+    <h1>Get Ready For An Epic Battle!</h1>
 
-        <p>Join the fight now! <a href="./game-local/selectLocal.html"><button>Play Game</button></a></p>
-        <p>Join the fight now! <a href="./select.html"><button>Play Online</button></a></p>
-    </main>
+    <div class="localButton">
+        <a href="./game-local/selectLocal.html"><div class="slide-effect ctrlsBtn">LOCAL BATTLE</div></a>
+        <a href="./select.html"><div class="slide-effect ctrlsBtn">ONLINE BATTLE</div></a>
+    </div>
+
     <!-- <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
